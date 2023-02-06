@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.nio.charset.StandardCharsets;
-
 public class SmppSubmitSmRespCodecTest {
 
     private final SmppDecoder decoder = new SmppDecoder();

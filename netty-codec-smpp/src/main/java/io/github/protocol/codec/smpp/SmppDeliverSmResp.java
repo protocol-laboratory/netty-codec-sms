@@ -19,13 +19,8 @@
 
 package io.github.protocol.codec.smpp;
 
-public class SmppDeliverSmResp extends SmppMessage {
+public class SmppDeliverSmResp extends SmppMessage<SmppDeliverSmRespBody> {
     public SmppDeliverSmResp(SmppHeader header, SmppDeliverSmRespBody body) {
         super(header, body);
-    }
-
-    @Override
-    public SmppDeliverSmRespBody body() {
-        return (SmppDeliverSmRespBody) super.body();
     }
 }
