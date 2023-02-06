@@ -19,32 +19,8 @@
 
 package io.github.protocol.codec.smgp;
 
-import io.netty.util.internal.StringUtil;
-
-public class SmgpMessage<T> {
-
-    private final SmgpHeader header;
-
-    private final T body;
-
-    public SmgpMessage(SmgpHeader header, T body) {
-        this.header = header;
-        this.body = body;
-    }
-
-    public SmgpHeader header() {
-        return header;
-    }
-
-    public T body() {
-        return body;
-    }
-
-    @Override
-    public String toString() {
-        return StringUtil.simpleClassName(this) + '['
-                + "header=" + header
-                + ", body=" + body
-                + ']';
+public class SmgpLogin extends SmgpMessage<SmgpLoginBody> {
+    public SmgpLogin(SmgpHeader header, SmgpLoginBody body) {
+        super(header, body);
     }
 }

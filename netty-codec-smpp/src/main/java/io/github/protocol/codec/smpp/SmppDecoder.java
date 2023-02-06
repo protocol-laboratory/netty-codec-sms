@@ -50,7 +50,7 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
         }
     }
 
-    private SmppMessage decode(ByteBuf frame) {
+    SmppMessage decode(ByteBuf frame) {
         int commandLength = frame.readInt();
         int commandId = frame.readInt();
         int commandStatus = frame.readInt();
@@ -273,7 +273,9 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
         if (length == -1) {
             throw new IllegalArgumentException("No \\0 found");
         }
-        return frame.readCharSequence(length, StandardCharsets.UTF_8).toString();
+        CharSequence charSequence = frame.readCharSequence(length, StandardCharsets.UTF_8);
+        frame.skipBytes(1);
+        return charSequence.toString();
     }
 
 }

@@ -29,13 +29,16 @@ import java.util.List;
 
 @ChannelHandler.Sharable
 public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
+
+    public static final SmppEncoder INSTANCE = new SmppEncoder();
+
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, SmppMessage smppMessage,
                           List<Object> list) throws Exception {
         list.add(doEncode(channelHandlerContext, smppMessage));
     }
 
-    private ByteBuf doEncode(ChannelHandlerContext ctx, SmppMessage message) {
+    ByteBuf doEncode(ChannelHandlerContext ctx, SmppMessage message) {
         switch (message.header().commandId()) {
             case SmppConst.BIND_RECEIVER_ID:
                 return encodeBindReceiver(ctx, (SmppBindReceiver) message);
@@ -88,8 +91,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         int bodySize = len(body.systemId()) + len(body.password()) + len(body.systemType())
                 + SmppConst.LEN_INTERFACE_VERSION + SmppConst.LEN_ADDR_TON + SmppConst.LEN_ADDR_NPI
                 + len(body.addressRange());
-        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER + bodySize);
-        writeHeader(buf, header);
+        int size = SmppConst.LEN_HEADER + bodySize;
+        ByteBuf buf = ctx.alloc().buffer(size);
+        writeHeader(buf, header, size);
         writeCString(buf, body.systemId());
         writeCString(buf, body.password());
         writeCString(buf, body.systemType());
@@ -104,8 +108,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         SmppHeader header = bindReceiverResp.header();
         SmppBindReceiverRespBody body = bindReceiverResp.body();
         int bodySize = len(body.systemId());
-        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER + bodySize);
-        writeHeader(buf, header);
+        int size = SmppConst.LEN_HEADER + bodySize;
+        ByteBuf buf = ctx.alloc().buffer(size);
+        writeHeader(buf, header, size);
         writeCString(buf, body.systemId());
         return buf;
     }
@@ -116,8 +121,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         int bodySize = len(body.systemId()) + len(body.password()) + len(body.systemType())
                 + SmppConst.LEN_INTERFACE_VERSION + SmppConst.LEN_ADDR_TON + SmppConst.LEN_ADDR_NPI
                 + len(body.addressRange());
-        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER + bodySize);
-        writeHeader(buf, header);
+        int size = SmppConst.LEN_HEADER + bodySize;
+        ByteBuf buf = ctx.alloc().buffer(size);
+        writeHeader(buf, header, size);
         writeCString(buf, body.systemId());
         writeCString(buf, body.password());
         writeCString(buf, body.systemType());
@@ -132,8 +138,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         SmppHeader header = bindTransmitterResp.header();
         SmppBindTransmitterRespBody body = bindTransmitterResp.body();
         int bodySize = len(body.systemId());
-        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER + bodySize);
-        writeHeader(buf, header);
+        int size = SmppConst.LEN_HEADER + bodySize;
+        ByteBuf buf = ctx.alloc().buffer(size);
+        writeHeader(buf, header, size);
         writeCString(buf, body.systemId());
         return buf;
     }
@@ -143,8 +150,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         SmppQuerySmBody body = querySm.body();
         int bodySize = len(body.messageId()) + SmppConst.LEN_SOURCE_ADDR_TON + SmppConst.LEN_SOURCE_ADDR_NPI
                 + len(body.sourceAddr());
-        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER + bodySize);
-        writeHeader(buf, header);
+        int size = SmppConst.LEN_HEADER + bodySize;
+        ByteBuf buf = ctx.alloc().buffer(size);
+        writeHeader(buf, header, size);
         writeCString(buf, body.messageId());
         buf.writeByte(body.sourceAddrTon());
         buf.writeByte(body.sourceAddrNpi());
@@ -157,8 +165,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         SmppQuerySmRespBody body = querySmResp.body();
         int bodySize = len(body.messageId()) + len(body.finalDate()) + SmppConst.LEN_MESSAGE_STATE
                 + SmppConst.LEN_ERROR_CODE;
-        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER + bodySize);
-        writeHeader(buf, header);
+        int size = SmppConst.LEN_HEADER + bodySize;
+        ByteBuf buf = ctx.alloc().buffer(size);
+        writeHeader(buf, header, size);
         writeCString(buf, body.messageId());
         writeCString(buf, body.finalDate());
         buf.writeByte(body.messageState());
@@ -176,8 +185,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
                 + SmppConst.LEN_REGISTERED_DELIVERY + SmppConst.LEN_REPLACE_IF_PRESENT_FLAG
                 + SmppConst.LEN_DATA_CODING + SmppConst.LEN_SM_DEFAULT_MSG_ID + SmppConst.LEN_SM_LENGTH
                 + body.smLength();
-        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER + bodySize);
-        writeHeader(buf, header);
+        int size = SmppConst.LEN_HEADER + bodySize;
+        ByteBuf buf = ctx.alloc().buffer(size);
+        writeHeader(buf, header, size);
         writeCString(buf, body.serviceType());
         buf.writeByte(body.sourceAddrTon());
         buf.writeByte(body.sourceAddrNpi());
@@ -203,8 +213,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         SmppHeader header = submitSmResp.header();
         SmppSubmitSmRespBody body = submitSmResp.body();
         int bodySize = len(body.messageId());
-        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER + bodySize);
-        writeHeader(buf, header);
+        int size = SmppConst.LEN_HEADER + bodySize;
+        ByteBuf buf = ctx.alloc().buffer(size);
+        writeHeader(buf, header, size);
         writeCString(buf, body.messageId());
         return buf;
     }
@@ -218,8 +229,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
                 + SmppConst.LEN_PRIORITY_FLAG + len(body.scheduleDeliveryTime()) + len(body.validityPeriod())
                 + SmppConst.LEN_REGISTERED_DELIVERY + SmppConst.LEN_REPLACE_IF_PRESENT_FLAG + SmppConst.LEN_DATA_CODING
                 + SmppConst.LEN_SM_DEFAULT_MSG_ID + SmppConst.LEN_SM_LENGTH + body.smLength();
-        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER + bodySize);
-        writeHeader(buf, header);
+        int size = SmppConst.LEN_HEADER + bodySize;
+        ByteBuf buf = ctx.alloc().buffer(size);
+        writeHeader(buf, header, size);
         writeCString(buf, body.serviceType());
         buf.writeByte(body.sourceAddrTon());
         buf.writeByte(body.sourceAddrNpi());
@@ -245,8 +257,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         SmppHeader header = deliverSmResp.header();
         SmppDeliverSmRespBody body = deliverSmResp.body();
         int bodySize = len(body.messageId());
-        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER + bodySize);
-        writeHeader(buf, header);
+        int size = SmppConst.LEN_HEADER + bodySize;
+        ByteBuf buf = ctx.alloc().buffer(size);
+        writeHeader(buf, header, size);
         writeCString(buf, body.messageId());
         return buf;
     }
@@ -257,8 +270,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         int bodySize = len(body.systemId()) + len(body.password()) + len(body.systemType())
                 + SmppConst.LEN_INTERFACE_VERSION + SmppConst.LEN_ADDR_TON + SmppConst.LEN_ADDR_NPI
                 + len(body.addressRange());
-        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER + bodySize);
-        writeHeader(buf, header);
+        int size = SmppConst.LEN_HEADER + bodySize;
+        ByteBuf buf = ctx.alloc().buffer(size);
+        writeHeader(buf, header, size);
         writeCString(buf, body.systemId());
         writeCString(buf, body.password());
         writeCString(buf, body.systemType());
@@ -273,8 +287,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         SmppHeader header = bindTransceiverResp.header();
         SmppBindTransceiverRespBody body = bindTransceiverResp.body();
         int bodySize = len(body.systemId());
-        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER + bodySize);
-        writeHeader(buf, header);
+        int size = SmppConst.LEN_HEADER + bodySize;
+        ByteBuf buf = ctx.alloc().buffer(size);
+        writeHeader(buf, header, size);
         writeCString(buf, body.systemId());
         return buf;
     }
@@ -291,8 +306,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
                 + len(body.scheduleDeliveryTime()) + len(body.validityPeriod()) + SmppConst.LEN_REGISTERED_DELIVERY
                 + SmppConst.LEN_REPLACE_IF_PRESENT_FLAG + SmppConst.LEN_DATA_CODING + SmppConst.LEN_SM_DEFAULT_MSG_ID
                 + SmppConst.LEN_SM_LENGTH + body.smLength();
-        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER + bodySize);
-        writeHeader(buf, header);
+        int size = SmppConst.LEN_HEADER + bodySize;
+        ByteBuf buf = ctx.alloc().buffer(size);
+        writeHeader(buf, header, size);
         writeCString(buf, body.serviceType());
         buf.writeByte(body.sourceAddrTon());
         buf.writeByte(body.sourceAddrNpi());
@@ -324,8 +340,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         for (UnsuccessfulDelivery unsuccessfulDelivery : body.unsuccessSmes()) {
             bodySize += len(unsuccessfulDelivery);
         }
-        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER + bodySize);
-        writeHeader(buf, header);
+        int size = SmppConst.LEN_HEADER + bodySize;
+        ByteBuf buf = ctx.alloc().buffer(size);
+        writeHeader(buf, header, size);
         writeCString(buf, body.messageId());
         buf.writeByte(body.noUnsuccess());
         for (UnsuccessfulDelivery unsuccessfulDelivery : body.unsuccessSmes()) {
@@ -346,8 +363,12 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         }
     }
 
-    private void writeHeader(ByteBuf buf, SmppHeader header) {
-        buf.writeInt(header.commandLength());
+    private void writeHeader(ByteBuf buf, SmppHeader header, int size) {
+        if (header.commandLength() == 0) {
+            buf.writeInt(size);
+        } else {
+            buf.writeInt(header.commandLength());
+        }
         buf.writeInt(header.commandId());
         buf.writeInt(header.commandStatus());
         buf.writeInt(header.sequenceNumber());

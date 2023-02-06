@@ -19,32 +19,29 @@
 
 package io.github.protocol.codec.smgp;
 
-import io.netty.util.internal.StringUtil;
+public class SmgpHeader {
 
-public class SmgpMessage<T> {
+    private final int packetLength;
 
-    private final SmgpHeader header;
+    private final int requestID;
 
-    private final T body;
+    private final int sequenceID;
 
-    public SmgpMessage(SmgpHeader header, T body) {
-        this.header = header;
-        this.body = body;
+    public SmgpHeader(int packetLength, int requestID, int sequenceID) {
+        this.packetLength = packetLength;
+        this.requestID = requestID;
+        this.sequenceID = sequenceID;
     }
 
-    public SmgpHeader header() {
-        return header;
+    public int packetLength() {
+        return packetLength;
     }
 
-    public T body() {
-        return body;
+    public int requestID() {
+        return requestID;
     }
 
-    @Override
-    public String toString() {
-        return StringUtil.simpleClassName(this) + '['
-                + "header=" + header
-                + ", body=" + body
-                + ']';
+    public int sequenceID() {
+        return sequenceID;
     }
 }

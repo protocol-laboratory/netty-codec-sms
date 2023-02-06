@@ -19,32 +19,44 @@
 
 package io.github.protocol.codec.smgp;
 
-import io.netty.util.internal.StringUtil;
+public class SmgpLoginBody {
 
-public class SmgpMessage<T> {
+    private final String clientId;
 
-    private final SmgpHeader header;
+    private final String authenticatorClient;
 
-    private final T body;
+    private final byte loginMode;
 
-    public SmgpMessage(SmgpHeader header, T body) {
-        this.header = header;
-        this.body = body;
+    private final int timestamp;
+
+    private final byte version;
+
+    public SmgpLoginBody(String clientId, String authenticatorClient, byte loginMode,
+                         int timestamp, byte version) {
+        this.clientId = clientId;
+        this.authenticatorClient = authenticatorClient;
+        this.loginMode = loginMode;
+        this.timestamp = timestamp;
+        this.version = version;
     }
 
-    public SmgpHeader header() {
-        return header;
+    public String clientId() {
+        return clientId;
     }
 
-    public T body() {
-        return body;
+    public String authenticatorClient() {
+        return authenticatorClient;
     }
 
-    @Override
-    public String toString() {
-        return StringUtil.simpleClassName(this) + '['
-                + "header=" + header
-                + ", body=" + body
-                + ']';
+    public byte loginMode() {
+        return loginMode;
+    }
+
+    public int timestamp() {
+        return timestamp;
+    }
+
+    public byte version() {
+        return version;
     }
 }
