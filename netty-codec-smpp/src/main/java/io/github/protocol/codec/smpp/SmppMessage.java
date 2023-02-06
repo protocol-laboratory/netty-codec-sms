@@ -21,13 +21,13 @@ package io.github.protocol.codec.smpp;
 
 import io.netty.util.internal.StringUtil;
 
-public class SmppMessage {
+public class SmppMessage<T> {
 
     private final SmppHeader header;
 
-    private final Object body;
+    private final T body;
 
-    public SmppMessage(SmppHeader header, Object body) {
+    public SmppMessage(SmppHeader header, T body) {
         this.header = header;
         this.body = body;
     }
@@ -36,7 +36,7 @@ public class SmppMessage {
         return header;
     }
 
-    public Object body() {
+    public T body() {
         return body;
     }
 

@@ -19,7 +19,7 @@
 
 package io.github.protocol.codec.smpp;
 
-public class SmppSubmitMultiResp extends SmppMessage {
+public class SmppSubmitMultiResp extends SmppMessage<SmppSubmitMultiRespBody> {
     public SmppSubmitMultiResp(SmppHeader header, SmppSubmitMultiRespBody body) {
         super(header, body);
     }

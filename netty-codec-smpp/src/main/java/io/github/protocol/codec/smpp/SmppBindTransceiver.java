@@ -19,13 +19,8 @@
 
 package io.github.protocol.codec.smpp;
 
-public class SmppBindTransceiver extends SmppMessage {
+public class SmppBindTransceiver extends SmppMessage<SmppBindTransceiverBody> {
     public SmppBindTransceiver(SmppHeader header, SmppBindTransceiverBody body) {
         super(header, body);
-    }
-
-    @Override
-    public SmppBindTransceiverBody body() {
-        return (SmppBindTransceiverBody) super.body();
     }
 }

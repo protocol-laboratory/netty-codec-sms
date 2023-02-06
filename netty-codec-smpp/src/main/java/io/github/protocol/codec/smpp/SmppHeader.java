@@ -29,6 +29,14 @@ public class SmppHeader {
 
     private final int sequenceNumber;
 
+    public SmppHeader(int commandId, int sequenceNumber) {
+        this(0, commandId, 0, sequenceNumber);
+    }
+
+    public SmppHeader(int commandId, int commandStatus, int sequenceNumber) {
+        this(0, commandId, commandStatus, sequenceNumber);
+    }
+
     public SmppHeader(int commandLength, int commandId, int commandStatus, int sequenceNumber) {
         this.commandLength = commandLength;
         this.commandId = commandId;

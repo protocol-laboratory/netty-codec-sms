@@ -19,7 +19,7 @@
 
 package io.github.protocol.codec.smpp;
 
-public class SmppEnquireLink extends SmppMessage {
+public class SmppEnquireLink extends SmppMessage<Object> {
     public SmppEnquireLink(SmppHeader header) {
         super(header, null);
     }
