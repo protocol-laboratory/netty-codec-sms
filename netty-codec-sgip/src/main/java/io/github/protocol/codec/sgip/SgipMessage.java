@@ -19,5 +19,32 @@
 
 package io.github.protocol.codec.sgip;
 
-public class SgipMessage {
+import io.netty.util.internal.StringUtil;
+
+public class SgipMessage<T> {
+
+    private final SgipHeader header;
+
+    private final T body;
+
+    public SgipMessage(SgipHeader header, T body) {
+        this.header = header;
+        this.body = body;
+    }
+
+    public SgipHeader header() {
+        return header;
+    }
+
+    public T body() {
+        return body;
+    }
+
+    @Override
+    public String toString() {
+        return StringUtil.simpleClassName(this) + '['
+                + "header=" + header
+                + ", body=" + body
+                + ']';
+    }
 }

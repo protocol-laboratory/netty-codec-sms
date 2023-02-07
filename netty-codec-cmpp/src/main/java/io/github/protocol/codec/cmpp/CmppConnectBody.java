@@ -36,19 +36,19 @@ public class CmppConnectBody {
         this.timestamp = timestamp;
     }
 
-    public String getSourceAddr() {
+    public String sourceAddr() {
         return sourceAddr;
     }
 
-    public String getAuthenticatorSource() {
+    public String authenticatorSource() {
         return authenticatorSource;
     }
 
-    public byte getVersion() {
+    public byte version() {
         return version;
     }
 
-    public int getTimestamp() {
+    public int timestamp() {
         return timestamp;
     }
 }
