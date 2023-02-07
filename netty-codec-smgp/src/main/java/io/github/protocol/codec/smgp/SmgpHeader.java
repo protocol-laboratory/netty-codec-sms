@@ -27,6 +27,10 @@ public class SmgpHeader {
 
     private final int sequenceID;
 
+    public SmgpHeader(int requestID, int sequenceID) {
+        this(0, requestID, sequenceID);
+    }
+
     public SmgpHeader(int packetLength, int requestID, int sequenceID) {
         this.packetLength = packetLength;
         this.requestID = requestID;

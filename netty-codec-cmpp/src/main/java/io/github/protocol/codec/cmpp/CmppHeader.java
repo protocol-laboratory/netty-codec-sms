@@ -36,4 +36,16 @@ public class CmppHeader {
         this.commandId = commandId;
         this.sequenceId = sequenceId;
     }
+
+    public int totalLength() {
+        return totalLength;
+    }
+
+    public int commandId() {
+        return commandId;
+    }
+
+    public int sequenceId() {
+        return sequenceId;
+    }
 }

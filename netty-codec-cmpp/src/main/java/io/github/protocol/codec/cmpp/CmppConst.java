@@ -87,4 +87,14 @@ public class CmppConst {
 
     public static final int GET_MO_ROUTE_RESP_ID = 0x80000017;
 
+    public static final int LEN_AUTHENTICATOR_SOURCE = 16;
+
+    public static final int LEN_CONNECT_MSG = 39;
+
+    public static final int LEN_SOURCE_ADDR = 6;
+
+    public static final int LEN_TIMESTAMP = 4;
+
+    public static final byte LEN_VERSION = 1;
+
 }
