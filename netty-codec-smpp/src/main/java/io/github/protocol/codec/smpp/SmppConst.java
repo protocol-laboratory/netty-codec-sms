@@ -72,6 +72,14 @@ public class SmppConst {
 
     public static final int SUBMIT_MULTI_RESP_ID = 0x80000021;
 
+    public static final int STATUS_OK = 0;
+
+    public static final int STATUS_INVMSGLEN = 1;
+
+    public static final int STATUS_INVCMDLEN = 2;
+
+    public static final int STATUS_INVCMDID = 3;
+
     public static final int LEN_ADDR_NPI = 1;
 
     public static final int LEN_ADDR_TON = 1;

@@ -17,29 +17,21 @@
  * under the License.
  */
 
-package io.github.protocol.codec.cngp;
+package io.github.protocol.codec.smgp;
 
-public class CngpConst {
+import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.MessageToMessageEncoder;
 
-    public static final int DEFAULT_MAX_BYTES_IN_MESSAGE = 8092;
+import java.util.List;
 
-    public static final int LOGIN_ID = 0x00000001;
+@ChannelHandler.Sharable
+public class SmgpEncoder extends MessageToMessageEncoder<SmgpMessage> {
 
-    public static final int LOGIN_RESP_ID = 0x80000001;
+    public static final SmgpEncoder INSTANCE = new SmgpEncoder();
 
-    public static final int SUBMIT_ID = 0x00000002;
-
-    public static final int SUBMIT_RESP_ID = 0x80000002;
-
-    public static final int DELIVER_ID = 0x00000003;
-
-    public static final int DELIVER_RESP_ID = 0x80000003;
-
-    public static final int ACTIVE_TEST_ID = 0x00000004;
-
-    public static final int ACTIVE_TEST_RESP_ID = 0x80000004;
-
-    public static final int EXIT_ID = 0x00000006;
-
-    public static final int EXIT_RESP_ID = 0x80000006;
+    @Override
+    protected void encode(ChannelHandlerContext channelHandlerContext, SmgpMessage smgpMessage,
+                          List<Object> list) throws Exception {
+    }
 }

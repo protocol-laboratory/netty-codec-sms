@@ -21,6 +21,8 @@ package io.github.protocol.codec.cmpp;
 
 public class CmppConst {
 
+    public static final int DEFAULT_MAX_BYTES_IN_MESSAGE = 8092;
+
     public static final int CONNECT_ID = 0x00000001;
 
     public static final int CONNECT_RESP_ID = 0x80000001;

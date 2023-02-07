@@ -21,6 +21,8 @@ package io.github.protocol.codec.sgip;
 
 public class SgipConst {
 
+    public static final int DEFAULT_MAX_BYTES_IN_MESSAGE = 8092;
+
     public static final int BIND_ID = 0x00000001;
 
     public static final int BIND_RESP_ID = 0x80000001;

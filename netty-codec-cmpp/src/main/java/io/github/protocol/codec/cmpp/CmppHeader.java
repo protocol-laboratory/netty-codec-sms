@@ -17,29 +17,23 @@
  * under the License.
  */
 
-package io.github.protocol.codec.cngp;
+package io.github.protocol.codec.cmpp;
 
-public class CngpConst {
+public class CmppHeader {
 
-    public static final int DEFAULT_MAX_BYTES_IN_MESSAGE = 8092;
+    private final int totalLength;
 
-    public static final int LOGIN_ID = 0x00000001;
+    private final int commandId;
 
-    public static final int LOGIN_RESP_ID = 0x80000001;
+    private final int sequenceId;
 
-    public static final int SUBMIT_ID = 0x00000002;
+    public CmppHeader(int commandId, int sequenceId) {
+        this(0, commandId, sequenceId);
+    }
 
-    public static final int SUBMIT_RESP_ID = 0x80000002;
-
-    public static final int DELIVER_ID = 0x00000003;
-
-    public static final int DELIVER_RESP_ID = 0x80000003;
-
-    public static final int ACTIVE_TEST_ID = 0x00000004;
-
-    public static final int ACTIVE_TEST_RESP_ID = 0x80000004;
-
-    public static final int EXIT_ID = 0x00000006;
-
-    public static final int EXIT_RESP_ID = 0x80000006;
+    public CmppHeader(int totalLength, int commandId, int sequenceId) {
+        this.totalLength = totalLength;
+        this.commandId = commandId;
+        this.sequenceId = sequenceId;
+    }
 }

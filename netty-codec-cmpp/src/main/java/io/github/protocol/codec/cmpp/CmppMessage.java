@@ -19,5 +19,32 @@
 
 package io.github.protocol.codec.cmpp;
 
-public class CmppMessage {
+import io.netty.util.internal.StringUtil;
+
+public class CmppMessage<T> {
+
+    private final CmppHeader header;
+
+    private final T body;
+
+    public CmppMessage(CmppHeader header, T body) {
+        this.header = header;
+        this.body = body;
+    }
+
+    public CmppHeader header() {
+        return header;
+    }
+
+    public T body() {
+        return body;
+    }
+
+    @Override
+    public String toString() {
+        return StringUtil.simpleClassName(this) + '['
+                + "header=" + header
+                + ", body=" + body
+                + ']';
+    }
 }
