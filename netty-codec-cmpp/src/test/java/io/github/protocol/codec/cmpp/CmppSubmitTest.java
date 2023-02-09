@@ -26,23 +26,29 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class CmppConnectCodecTest {
+import java.util.Arrays;
+import java.util.List;
+
+public class CmppSubmitTest {
 
     private final CmppDecoder decoder = new CmppDecoder();
 
     @Test
     public void case1() {
-        CmppHeader header = new CmppHeader(CmppConst.CONNECT_ID, 0);
-        CmppConnectBody body = new CmppConnectBody("source", "password",
-                (byte) 0, 1122334455);
+        CmppHeader header = new CmppHeader(CmppConst.SUBMIT_ID, 0);
+        List<String> destTerminalId = Arrays.asList("123456789", "8888888");
+        CmppSubmitBody cmppSubmitBody = new CmppSubmitBody(12345678L, (byte) 0, (byte) 0, (byte) 0, (byte) 0,
+                "1234567890", (byte) 0, "qwertyuiopasdfgh", (byte) 0, (byte) 0,
+                (byte) 0, (byte) 0, "asdfgh", "12", "asdfgh", "asdfghjklqwertyui",
+                "asdfghjkloiuytr", "asdfghjklzxcvbnmqwert", (byte) 2, destTerminalId,
+                (byte) 0, (byte) 0, "q", "asdfghjklqwertyuiopz");
         ChannelHandlerContext ctx = Mockito.mock(ChannelHandlerContext.class);
         Mockito.when(ctx.alloc()).thenReturn(ByteBufAllocator.DEFAULT);
-        ByteBuf byteBuf = CmppEncoder.INSTANCE.doEncode(ctx, new CmppConnect(header, body));
-        CmppConnect bindTransmitter = (CmppConnect) decoder.decode(byteBuf);
-        Assertions.assertEquals("source", bindTransmitter.body().sourceAddr());
-        Assertions.assertEquals("password", bindTransmitter.body().authenticatorSource());
-        Assertions.assertEquals((byte) 0, bindTransmitter.body().version());
-        Assertions.assertEquals(1122334455, bindTransmitter.body().timestamp());
-        Assertions.assertEquals(0, byteBuf.readableBytes());
+        ByteBuf buf = CmppEncoder.INSTANCE.doEncode(ctx, new CmppSubmit(header, cmppSubmitBody));
+        CmppSubmit cmppSubmit = (CmppSubmit) decoder.decode(buf);
+        Assertions.assertEquals("asdfghjklzxcvbnmqwert", cmppSubmit.body().srcId());
+        Assertions.assertEquals("asdfghjklqwertyuiopz", cmppSubmit.body().linkId());
+        Assertions.assertEquals("123456789", cmppSubmit.body().destTerminalId().get(0));
+        Assertions.assertEquals(0, buf.readableBytes());
     }
 }

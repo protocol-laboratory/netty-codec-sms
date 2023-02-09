@@ -87,14 +87,46 @@ public class CmppConst {
 
     public static final int GET_MO_ROUTE_RESP_ID = 0x80000017;
 
+    public static final int LEN_ACTIVE_TEST_RESP_MSG = CmppConst.LEN_HEADER + 1;
+    public static final int LEN_AT_TIME = 17;
+
+    public static final int LEN_AUTHENTICATOR_ISMG = 16;
+
     public static final int LEN_AUTHENTICATOR_SOURCE = 16;
 
     public static final int LEN_CONNECT_MSG = 39;
 
+    public static final int LEN_CONNECT_RESP_MSG = CmppConst.LEN_HEADER + 21;
+
+    public static final int LEN_DEST_TERMINAL_ID = 32;
+    public static final int LEN_FEE_TERMINAL_ID = 32;
+
+    public static final int LEN_FEE_CODE = 6;
+
+    public static final int LEN_FEE_TYPE = 2;
+
+    public static final int LEN_HEADER = 12;
+
+    public static final int LEN_LINK_ID = 20;
+
+    public static final int LEN_MESSAGE_CONTENT = 1;
+
+    public static final int LEN_MESSAGE_SRC = 6;
+
+    public static final int LEN_SERVICE_ID = 10;
+
     public static final int LEN_SOURCE_ADDR = 6;
+
+    public static final int LEN_SRC_ID = 21;
+
+    public static final int LEN_SUBMIT_BODY_SIZE = CmppConst.LEN_HEADER + 152;
+
+    public static final int LEN_SUBMIT_BODY_RESP_SIZE = CmppConst.LEN_HEADER + 12;
 
     public static final int LEN_TIMESTAMP = 4;
 
-    public static final byte LEN_VERSION = 1;
+    public static final int LEN_VALID_TIME = 17;
+
+    public static final int LEN_VERSION = 1;
 
 }

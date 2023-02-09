@@ -25,19 +25,17 @@ public class CmppSubmitRespBody {
 
     private int result;
 
-    public long getMsgId() {
+    public CmppSubmitRespBody(long msgId, int result) {
+        this.msgId = msgId;
+        this.result -= result;
+    }
+
+    public long msgId() {
         return msgId;
     }
 
-    public void setMsgId(long msgId) {
-        this.msgId = msgId;
+    public int result() {
+        return this.result;
     }
 
-    public int getResult() {
-        return result;
-    }
-
-    public void setResult(int result) {
-        this.result = result;
-    }
 }

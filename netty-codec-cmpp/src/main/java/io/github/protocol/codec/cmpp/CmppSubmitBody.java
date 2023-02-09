@@ -71,195 +71,130 @@ public class CmppSubmitBody {
 
     private String linkId;
 
-    public long getMsgId() {
+    public CmppSubmitBody(long msgId, byte pkTotal, byte pkNumber, byte registeredDelivery, byte msgLevel,
+                          String serviceId, byte feeUserType, String feeTerminalId, byte feeTerminalType, byte tpPId,
+                          byte tpUdhi, byte msgFmt, String msgSrc, String feeType, String feeCode, String validTime,
+                          String atTime, String srcId, byte destUsrTl, List<String> destTerminalId,
+                          byte destTerminalType, byte msgLength, String msgContent, String linkId) {
+        this.msgId = msgId;
+        this.pkTotal = pkTotal;
+        this.pkNumber = pkNumber;
+        this.registeredDelivery = registeredDelivery;
+        this.msgLevel = msgLevel;
+        this.serviceId = serviceId;
+        this.feeUserType = feeUserType;
+        this.feeTerminalId = feeTerminalId;
+        this.feeTerminalType = feeTerminalType;
+        this.tpPId = tpPId;
+        this.tpUdhi = tpUdhi;
+        this.msgFmt = msgFmt;
+        this.msgSrc = msgSrc;
+        this.feeType = feeType;
+        this.feeCode = feeCode;
+        this.validTime = validTime;
+        this.atTime = atTime;
+        this.srcId = srcId;
+        this.destUsrTl = destUsrTl;
+        this.destTerminalId = destTerminalId;
+        this.destTerminalType = destTerminalType;
+        this.msgLength = msgLength;
+        this.msgContent = msgContent;
+        this.linkId = linkId;
+    }
+
+    public long msgId() {
         return msgId;
     }
 
-    public void setMsgId(long msgId) {
-        this.msgId = msgId;
-    }
-
-    public byte getPkTotal() {
+    public byte pkTotal() {
         return pkTotal;
     }
 
-    public void setPkTotal(byte pkTotal) {
-        this.pkTotal = pkTotal;
-    }
-
-    public byte getPkNumber() {
+    public byte pkNumber() {
         return pkNumber;
     }
 
-    public void setPkNumber(byte pkNumber) {
-        this.pkNumber = pkNumber;
-    }
-
-    public byte getRegisteredDelivery() {
+    public byte registeredDelivery() {
         return registeredDelivery;
     }
 
-    public void setRegisteredDelivery(byte registeredDelivery) {
-        this.registeredDelivery = registeredDelivery;
-    }
-
-    public byte getMsgLevel() {
+    public byte msgLevel() {
         return msgLevel;
     }
 
-    public void setMsgLevel(byte msgLevel) {
-        this.msgLevel = msgLevel;
-    }
-
-    public String getServiceId() {
+    public String serviceId() {
         return serviceId;
     }
 
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId;
-    }
-
-    public byte getFeeUserType() {
+    public byte feeUserType() {
         return feeUserType;
     }
 
-    public void setFeeUserType(byte feeUserType) {
-        this.feeUserType = feeUserType;
-    }
-
-    public String getFeeTerminalId() {
+    public String feeTerminalId() {
         return feeTerminalId;
     }
 
-    public void setFeeTerminalId(String feeTerminalId) {
-        this.feeTerminalId = feeTerminalId;
-    }
-
-    public byte getFeeTerminalType() {
+    public byte feeTerminalType() {
         return feeTerminalType;
     }
 
-    public void setFeeTerminalType(byte feeTerminalType) {
-        this.feeTerminalType = feeTerminalType;
-    }
-
-    public byte getTpPId() {
+    public byte tpPId() {
         return tpPId;
     }
 
-    public void setTpPId(byte tpPId) {
-        this.tpPId = tpPId;
-    }
-
-    public byte getTpUdhi() {
+    public byte tpUdhi() {
         return tpUdhi;
     }
 
-    public void setTpUdhi(byte tpUdhi) {
-        this.tpUdhi = tpUdhi;
-    }
-
-    public byte getMsgFmt() {
+    public byte msgFmt() {
         return msgFmt;
     }
 
-    public void setMsgFmt(byte msgFmt) {
-        this.msgFmt = msgFmt;
-    }
-
-    public String getMsgSrc() {
+    public String msgSrc() {
         return msgSrc;
     }
 
-    public void setMsgSrc(String msgSrc) {
-        this.msgSrc = msgSrc;
-    }
-
-    public String getFeeType() {
+    public String feeType() {
         return feeType;
     }
 
-    public void setFeeType(String feeType) {
-        this.feeType = feeType;
-    }
-
-    public String getFeeCode() {
+    public String feeCode() {
         return feeCode;
     }
 
-    public void setFeeCode(String feeCode) {
-        this.feeCode = feeCode;
-    }
-
-    public String getValidTime() {
+    public String validTime() {
         return validTime;
     }
 
-    public void setValidTime(String validTime) {
-        this.validTime = validTime;
-    }
-
-    public String getAtTime() {
+    public String atTime() {
         return atTime;
     }
 
-    public void setAtTime(String atTime) {
-        this.atTime = atTime;
-    }
-
-    public String getSrcId() {
+    public String srcId() {
         return srcId;
     }
 
-    public void setSrcId(String srcId) {
-        this.srcId = srcId;
-    }
-
-    public byte getDestUsrTl() {
+    public byte destUsrTl() {
         return destUsrTl;
     }
 
-    public void setDestUsrTl(byte destUsrTl) {
-        this.destUsrTl = destUsrTl;
-    }
-
-    public List<String> getDestTerminalId() {
+    public List<String> destTerminalId() {
         return destTerminalId;
     }
 
-    public void setDestTerminalId(List<String> destTerminalId) {
-        this.destTerminalId = destTerminalId;
-    }
-
-    public byte getDestTerminalType() {
+    public byte destTerminalType() {
         return destTerminalType;
     }
 
-    public void setDestTerminalType(byte destTerminalType) {
-        this.destTerminalType = destTerminalType;
-    }
-
-    public byte getMsgLength() {
+    public byte msgLength() {
         return msgLength;
     }
 
-    public void setMsgLength(byte msgLength) {
-        this.msgLength = msgLength;
-    }
-
-    public String getMsgContent() {
+    public String msgContent() {
         return msgContent;
     }
 
-    public void setMsgContent(String msgContent) {
-        this.msgContent = msgContent;
-    }
-
-    public String getLinkId() {
+    public String linkId() {
         return linkId;
-    }
-
-    public void setLinkId(String linkId) {
-        this.linkId = linkId;
     }
 }

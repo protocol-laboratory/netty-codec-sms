@@ -42,9 +42,27 @@ public class CmppEncoder extends MessageToMessageEncoder<CmppMessage> {
         switch (message.header().commandId()) {
             case CmppConst.CONNECT_ID:
                 return encodeConnect(ctx, (CmppConnect) message);
+            case CmppConst.CONNECT_RESP_ID:
+                return encodeConnectResp(ctx, (CmppConnectResp) message);
+            case CmppConst.SUBMIT_ID:
+                return encodeSubmit(ctx, (CmppSubmit) message);
+            case CmppConst.SUBMIT_RESP_ID:
+                return encodeSubmitResp(ctx, (CmppSubmitResp) message);
+            case CmppConst.ACTIVE_TEST_ID:
+                return encodeHeader(ctx, message.header());
+            case CmppConst.ACTIVE_TEST_RESP_ID:
+                return encodeActiveTestRespBody(ctx, (CmppActiveTestResp) message);
             default:
                 throw new IllegalArgumentException("Unknown commandId: " + message.header().commandId());
         }
+    }
+
+    private ByteBuf encodeHeader(ChannelHandlerContext ctx, CmppHeader header) {
+        ByteBuf buf = ctx.alloc().buffer(CmppConst.LEN_HEADER);
+        buf.writeInt(header.totalLength());
+        buf.writeInt(header.commandId());
+        buf.writeInt(header.sequenceId());
+        return buf;
     }
 
     private ByteBuf encodeConnect(ChannelHandlerContext ctx, CmppConnect message) {
@@ -54,6 +72,63 @@ public class CmppEncoder extends MessageToMessageEncoder<CmppMessage> {
         writeString(buf, message.body().authenticatorSource(), CmppConst.LEN_AUTHENTICATOR_SOURCE);
         buf.writeByte(message.body().version());
         buf.writeInt(message.body().timestamp());
+        return buf;
+    }
+
+    private ByteBuf encodeConnectResp(ChannelHandlerContext ctx, CmppConnectResp message) {
+        ByteBuf buf = ctx.alloc().buffer(CmppConst.LEN_CONNECT_RESP_MSG);
+        writeHeader(buf, message.header(), CmppConst.LEN_CONNECT_RESP_MSG);
+        buf.writeInt(message.body().status());
+        writeString(buf, message.body().authenticatorISMG(), CmppConst.LEN_AUTHENTICATOR_ISMG);
+        buf.writeByte(message.body().version());
+        return buf;
+    }
+
+    private ByteBuf encodeSubmit(ChannelHandlerContext ctx, CmppSubmit message) {
+        int bodySize = CmppConst.LEN_SUBMIT_BODY_SIZE + CmppConst.LEN_DEST_TERMINAL_ID * message.body().destUsrTl();
+        ByteBuf buf = ctx.alloc().buffer(bodySize);
+        writeHeader(buf, message.header(), bodySize);
+        buf.writeLong(message.body().msgId());
+        buf.writeByte(message.body().pkTotal());
+        buf.writeByte(message.body().pkNumber());
+        buf.writeByte(message.body().registeredDelivery());
+        buf.writeByte(message.body().msgLevel());
+        writeString(buf, message.body().serviceId(), CmppConst.LEN_SERVICE_ID);
+        buf.writeByte(message.body().feeUserType());
+        writeString(buf, message.body().feeTerminalId(), CmppConst.LEN_FEE_TERMINAL_ID);
+        buf.writeByte(message.body().feeTerminalType());
+        buf.writeByte(message.body().tpPId());
+        buf.writeByte(message.body().tpUdhi());
+        buf.writeByte(message.body().msgFmt());
+        writeString(buf, message.body().msgSrc(), CmppConst.LEN_MESSAGE_SRC);
+        writeString(buf, message.body().feeType(), CmppConst.LEN_FEE_TYPE);
+        writeString(buf, message.body().feeCode(), CmppConst.LEN_FEE_CODE);
+        writeString(buf, message.body().validTime(), CmppConst.LEN_VALID_TIME);
+        writeString(buf, message.body().atTime(), CmppConst.LEN_AT_TIME);
+        writeString(buf, message.body().srcId(), CmppConst.LEN_SRC_ID);
+        buf.writeByte(message.body().destUsrTl());
+        for (String destTerminalId : message.body().destTerminalId()) {
+            writeString(buf, destTerminalId, CmppConst.LEN_DEST_TERMINAL_ID);
+        }
+        buf.writeByte(message.body().destTerminalType());
+        buf.writeByte(message.body().msgLength());
+        writeString(buf, message.body().msgContent(), CmppConst.LEN_MESSAGE_CONTENT);
+        writeString(buf, message.body().linkId(), CmppConst.LEN_LINK_ID);
+        return buf;
+    }
+
+    private ByteBuf encodeSubmitResp(ChannelHandlerContext ctx, CmppSubmitResp message) {
+        ByteBuf buf = ctx.alloc().buffer(CmppConst.LEN_SUBMIT_BODY_RESP_SIZE);
+        writeHeader(buf, message.header(), CmppConst.LEN_SUBMIT_BODY_RESP_SIZE);
+        buf.writeLong(message.body().msgId());
+        buf.writeInt(message.body().result());
+        return buf;
+    }
+
+    private ByteBuf encodeActiveTestRespBody(ChannelHandlerContext ctx, CmppActiveTestResp message) {
+        ByteBuf buf = ctx.alloc().buffer(CmppConst.LEN_ACTIVE_TEST_RESP_MSG);
+        writeHeader(buf, message.header(), CmppConst.LEN_ACTIVE_TEST_RESP_MSG);
+        buf.writeByte(message.body().reserved());
         return buf;
     }
 
