@@ -27,6 +27,7 @@ public class SmppBindTransmitterCodecTest {
         Assertions.assertEquals((byte) 2, bindTransmitter.body().addrTon());
         Assertions.assertEquals((byte) 3, bindTransmitter.body().addrNpi());
         Assertions.assertEquals("addressRange", bindTransmitter.body().addressRange());
+        Assertions.assertEquals(0, byteBuf.readableBytes());
     }
 
 }

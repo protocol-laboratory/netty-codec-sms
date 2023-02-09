@@ -20,5 +20,6 @@ public class SmppSubmitSmRespCodecTest {
         ByteBuf byteBuf = SmppEncoder.INSTANCE.doEncode(ctx, new SmppSubmitSmResp(header, body));
         SmppSubmitSmResp submitSmResp = (SmppSubmitSmResp) decoder.decode(byteBuf);
         Assertions.assertEquals("messageId", submitSmResp.body().messageId());
+        Assertions.assertEquals(0, byteBuf.readableBytes());
     }
 }

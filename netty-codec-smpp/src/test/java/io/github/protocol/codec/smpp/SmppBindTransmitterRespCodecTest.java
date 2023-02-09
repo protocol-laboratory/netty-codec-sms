@@ -20,5 +20,6 @@ public class SmppBindTransmitterRespCodecTest {
         ByteBuf byteBuf = SmppEncoder.INSTANCE.doEncode(ctx, new SmppBindTransmitterResp(header, body));
         SmppBindTransmitterResp bindTransmitterResp = (SmppBindTransmitterResp) decoder.decode(byteBuf);
         Assertions.assertEquals("systemId", bindTransmitterResp.body().systemId());
+        Assertions.assertEquals(0, byteBuf.readableBytes());
     }
 }

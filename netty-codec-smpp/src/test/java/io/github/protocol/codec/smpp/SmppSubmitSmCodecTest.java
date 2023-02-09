@@ -44,6 +44,8 @@ public class SmppSubmitSmCodecTest {
         Assertions.assertEquals((byte) 3, submitSm.body().dataCoding());
         Assertions.assertEquals((byte) 4, submitSm.body().smDefaultMsgId());
         Assertions.assertEquals((byte) shortMessage.length, submitSm.body().smLength());
+        Assertions.assertArrayEquals(shortMessage, submitSm.body().shortMessage());
+        Assertions.assertEquals(0, byteBuf.readableBytes());
     }
 
 }
