@@ -57,6 +57,14 @@ public class CmppEncoder extends MessageToMessageEncoder<CmppMessage> {
         }
     }
 
+    private ByteBuf encodeHeader(ChannelHandlerContext ctx, CmppHeader header) {
+        ByteBuf buf = ctx.alloc().buffer(CmppConst.LEN_HEADER);
+        buf.writeInt(header.totalLength());
+        buf.writeInt(header.commandId());
+        buf.writeInt(header.sequenceId());
+        return buf;
+    }
+
     private ByteBuf encodeConnect(ChannelHandlerContext ctx, CmppConnect message) {
         ByteBuf buf = ctx.alloc().buffer();
         writeHeader(buf, message.header(), CmppConst.LEN_CONNECT_MSG);
@@ -114,14 +122,6 @@ public class CmppEncoder extends MessageToMessageEncoder<CmppMessage> {
         writeHeader(buf, message.header(), CmppConst.LEN_SUBMIT_BODY_RESP_SIZE);
         buf.writeLong(message.body().msgId());
         buf.writeInt(message.body().result());
-        return buf;
-    }
-
-    private ByteBuf encodeHeader(ChannelHandlerContext ctx, CmppHeader header) {
-        ByteBuf buf = ctx.alloc().buffer(CmppConst.LEN_HEADER);
-        buf.writeInt(header.totalLength());
-        buf.writeInt(header.commandId());
-        buf.writeInt(header.sequenceId());
         return buf;
     }
 
