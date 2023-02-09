@@ -2,13 +2,13 @@ package io.github.protocol.codec.cmpp;
 
 public class CmppActiveTestRespBody {
 
-    private byte reserved;
+    private final byte reserved;
 
-    public byte getReserved() {
-        return reserved;
+    public CmppActiveTestRespBody(byte reserved) {
+        this.reserved = reserved;
     }
 
-    public void setReserved(byte reserved) {
-        this.reserved = reserved;
+    public byte reserved() {
+        return reserved;
     }
 }

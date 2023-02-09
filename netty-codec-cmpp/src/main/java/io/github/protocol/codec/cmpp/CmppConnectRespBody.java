@@ -33,15 +33,15 @@ public class CmppConnectRespBody {
         this.version = version;
     }
 
-    public int getStatus() {
+    public int status() {
         return status;
     }
 
-    public String getAuthenticatorISMG() {
+    public String authenticatorISMG() {
         return authenticatorISMG;
     }
 
-    public byte getVersion() {
+    public byte version() {
         return version;
     }
 }

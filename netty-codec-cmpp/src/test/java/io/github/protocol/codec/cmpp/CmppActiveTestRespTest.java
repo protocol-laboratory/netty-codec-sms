@@ -1,5 +1,6 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one
+
+ * * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
@@ -26,23 +27,19 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class CmppConnectCodecTest {
+public class CmppActiveTestRespTest {
 
     private final CmppDecoder decoder = new CmppDecoder();
 
     @Test
     public void case1() {
-        CmppHeader header = new CmppHeader(CmppConst.CONNECT_ID, 0);
-        CmppConnectBody body = new CmppConnectBody("source", "password",
-                (byte) 0, 1122334455);
+        CmppHeader header = new CmppHeader(CmppConst.ACTIVE_TEST_RESP_ID, 0);
+        CmppActiveTestRespBody body = new CmppActiveTestRespBody((byte) 2);
         ChannelHandlerContext ctx = Mockito.mock(ChannelHandlerContext.class);
         Mockito.when(ctx.alloc()).thenReturn(ByteBufAllocator.DEFAULT);
-        ByteBuf byteBuf = CmppEncoder.INSTANCE.doEncode(ctx, new CmppConnect(header, body));
-        CmppConnect bindTransmitter = (CmppConnect) decoder.decode(byteBuf);
-        Assertions.assertEquals("source", bindTransmitter.body().sourceAddr());
-        Assertions.assertEquals("password", bindTransmitter.body().authenticatorSource());
-        Assertions.assertEquals((byte) 0, bindTransmitter.body().version());
-        Assertions.assertEquals(1122334455, bindTransmitter.body().timestamp());
-        Assertions.assertEquals(0, byteBuf.readableBytes());
+        ByteBuf buf = CmppEncoder.INSTANCE.doEncode(ctx, new CmppActiveTestResp(header, body));
+        CmppActiveTestResp cmppActiveTestResp = (CmppActiveTestResp) decoder.decode(buf);
+        Assertions.assertEquals(2, cmppActiveTestResp.body().reserved());
+        Assertions.assertEquals(0, buf.readableBytes());
     }
 }

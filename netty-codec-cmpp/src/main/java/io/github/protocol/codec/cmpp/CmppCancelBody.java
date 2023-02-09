@@ -21,14 +21,13 @@ package io.github.protocol.codec.cmpp;
 
 public class CmppCancelBody {
 
-    private long msgId;
+    private final long msgId;
 
-    public long getMsgId() {
-        return msgId;
-    }
-
-    public void setMsgId(long msgId) {
+    public CmppCancelBody(long msgId) {
         this.msgId = msgId;
     }
 
+    public long msgId() {
+        return msgId;
+    }
 }
