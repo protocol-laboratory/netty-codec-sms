@@ -94,4 +94,17 @@ public class SgipConst {
     public static final int TRACE_ID = 0x00001000;
 
     public static final int TRACE_RESP_ID = 0x80001000;
+
+    public static final int LEN_BIND_MSG = 41;
+
+    public static final int LEN_BIND_RESERVE = 8;
+
+    public static final int LEN_BIND_RESP_RESERVE = 8;
+
+    public static final int LEN_BIND_RESP_MSG = 9;
+    public static final int LEN_LOGIN_NAME = 16;
+
+    public static final int LEN_LOGIN_PASSWORD = 16;
+
+
 }

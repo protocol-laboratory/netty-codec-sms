@@ -19,33 +19,36 @@
 
 package io.github.protocol.codec.sgip;
 
-public class SgipHeader {
+public class SgipBindBody {
 
-    private final int messageLength;
+    private final byte loginType;
 
-    private final int commandId;
+    private final String loginName;
 
-    private final long sequenceNumber;
+    private final String loginPassword;
 
-    public SgipHeader(int commandId, long sequenceNumber) {
-        this(0, commandId, sequenceNumber);
+    private final String reserve;
+
+    public SgipBindBody(byte loginType, String loginName, String loginPassword, String reserve) {
+        this.loginType = loginType;
+        this.loginName = loginName;
+        this.loginPassword = loginPassword;
+        this.reserve = reserve;
     }
 
-    public SgipHeader(int messageLength, int commandId, long sequenceNumber) {
-        this.messageLength = messageLength;
-        this.commandId = commandId;
-        this.sequenceNumber = sequenceNumber;
+    public byte loginType() {
+        return this.loginType;
     }
 
-    public int messageLength() {
-        return this.messageLength;
+    public String loginName() {
+        return this.loginName;
     }
 
-    public int commandId() {
-        return this.commandId;
+    public String loginPassword() {
+        return this.loginPassword;
     }
 
-    public long sequenceNumber() {
-        return this.sequenceNumber;
+    public String reserve() {
+        return this.reserve;
     }
 }

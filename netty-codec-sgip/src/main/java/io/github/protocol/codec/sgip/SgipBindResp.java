@@ -19,33 +19,9 @@
 
 package io.github.protocol.codec.sgip;
 
-public class SgipHeader {
+public class SgipBindResp extends SgipMessage<SgipBindRespBody> {
 
-    private final int messageLength;
-
-    private final int commandId;
-
-    private final long sequenceNumber;
-
-    public SgipHeader(int commandId, long sequenceNumber) {
-        this(0, commandId, sequenceNumber);
-    }
-
-    public SgipHeader(int messageLength, int commandId, long sequenceNumber) {
-        this.messageLength = messageLength;
-        this.commandId = commandId;
-        this.sequenceNumber = sequenceNumber;
-    }
-
-    public int messageLength() {
-        return this.messageLength;
-    }
-
-    public int commandId() {
-        return this.commandId;
-    }
-
-    public long sequenceNumber() {
-        return this.sequenceNumber;
+    public SgipBindResp(SgipHeader header, SgipBindRespBody body) {
+        super(header, body);
     }
 }
