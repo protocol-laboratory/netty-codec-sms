@@ -24,6 +24,4 @@ public class SgipBind extends SgipMessage<SgipBindBody> {
     public SgipBind(SgipHeader header, SgipBindBody body) {
         super(header, body);
     }
-
-
 }
