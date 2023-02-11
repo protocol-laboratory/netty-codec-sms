@@ -45,13 +45,13 @@ public class SmgpSubmitBody {
 
     private final String chargeTermId;
 
-    private final byte destTermIdCount; // todo count <= 100
+    private final byte destTermIdCount;
 
     private final List<String> destTermId;
 
     private final byte msgLength;
 
-    private final String msgContent; // todo msg length <= 252
+    private final String msgContent;
 
     private final String reserve;
 
@@ -141,5 +141,4 @@ public class SmgpSubmitBody {
     public String reserve() {
         return this.reserve;
     }
-
 }

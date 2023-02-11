@@ -84,8 +84,11 @@ public class SmgpConst {
     public static final int LEN_SRC_TERM_ID = 21;
 
     public static final int LEN_SUBMIT_MSG = SmgpConst.LEN_HEADER + 100;
+
     public static final int LEN_SUBMIT_RESERVE = 8;
+
     public static final int LEN_SUBMIT_RESP_MESSAGE_ID = 10;
+
     public static final int LEN_SUBMIT_RESP_MSG = SmgpConst.LEN_HEADER + 14;
 
     public static final int LEN_VALID_TIME = 17;

@@ -46,6 +46,5 @@ public class SmgpSubmitTest {
         Assertions.assertEquals("qwer", message.body().destTermId().get(0));
         Assertions.assertEquals("srcTermId", message.body().srcTermId());
         Assertions.assertEquals(0, buf.readableBytes());
-
     }
 }

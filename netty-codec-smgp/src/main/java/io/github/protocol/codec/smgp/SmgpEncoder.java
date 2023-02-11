@@ -136,5 +136,4 @@ public class SmgpEncoder extends MessageToMessageEncoder<SmgpMessage> {
         buf.writeInt(header.requestID());
         buf.writeInt(header.sequenceID());
     }
-
 }

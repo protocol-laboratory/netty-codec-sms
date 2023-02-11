@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package io.github.protocol.codec.smgp;
 
 import io.netty.buffer.ByteBuf;
@@ -41,5 +42,4 @@ public class SmgpLoginTest {
         Assertions.assertEquals(12, message.body().timestamp());
         Assertions.assertEquals(0, buf.readableBytes());
     }
-
 }
