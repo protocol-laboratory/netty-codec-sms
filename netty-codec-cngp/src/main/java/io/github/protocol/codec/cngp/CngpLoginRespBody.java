@@ -19,22 +19,22 @@
 
 package io.github.protocol.codec.cngp;
 
-public class CngpMessage<T> {
+public class CngpLoginRespBody {
 
-    private final CngpHeader header;
+    private final String authenticatorServer;
 
-    private final T body;
+    private final byte version;
 
-    public CngpMessage(CngpHeader header, T body) {
-        this.header = header;
-        this.body = body;
+    public CngpLoginRespBody(String authenticatorServer, byte version) {
+        this.authenticatorServer = authenticatorServer;
+        this.version = version;
     }
 
-    public CngpHeader header() {
-        return this.header;
+    public String authenticatorServer() {
+        return authenticatorServer;
     }
 
-    public T body() {
-        return this.body;
+    public byte version() {
+        return version;
     }
 }

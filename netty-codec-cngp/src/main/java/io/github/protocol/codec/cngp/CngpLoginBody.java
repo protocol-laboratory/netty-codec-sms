@@ -19,22 +19,43 @@
 
 package io.github.protocol.codec.cngp;
 
-public class CngpMessage<T> {
+public class CngpLoginBody {
 
-    private final CngpHeader header;
+    private final String clientId;
 
-    private final T body;
+    private final String authenticatorClient;
 
-    public CngpMessage(CngpHeader header, T body) {
-        this.header = header;
-        this.body = body;
+    private final byte loginMode;
+
+    private final int timeStamp;
+
+    private final byte version;
+
+    public CngpLoginBody(String clientId, String authenticatorClient, byte loginMode, int timeStamp, byte version) {
+        this.clientId = clientId;
+        this.authenticatorClient = authenticatorClient;
+        this.loginMode = loginMode;
+        this.timeStamp = timeStamp;
+        this.version = version;
     }
 
-    public CngpHeader header() {
-        return this.header;
+    public String clientId() {
+        return clientId;
     }
 
-    public T body() {
-        return this.body;
+    public String authenticatorClient() {
+        return authenticatorClient;
+    }
+
+    public byte loginMode() {
+        return loginMode;
+    }
+
+    public int timeStamp() {
+        return timeStamp;
+    }
+
+    public byte version() {
+        return version;
     }
 }

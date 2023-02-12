@@ -19,22 +19,15 @@
 
 package io.github.protocol.codec.cngp;
 
-public class CngpMessage<T> {
+public class CngpSubmitRespBody {
 
-    private final CngpHeader header;
+    private final String msgId;
 
-    private final T body;
-
-    public CngpMessage(CngpHeader header, T body) {
-        this.header = header;
-        this.body = body;
+    public CngpSubmitRespBody(String msgId) {
+        this.msgId = msgId;
     }
 
-    public CngpHeader header() {
-        return this.header;
-    }
-
-    public T body() {
-        return this.body;
+    public String msgId() {
+        return msgId;
     }
 }

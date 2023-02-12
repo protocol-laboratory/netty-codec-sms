@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package io.github.protocol.codec.smgp;
+package io.github.protocol.codec.cngp;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
@@ -26,26 +26,18 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
-public class SmgpSubmitTest {
+public class CngpLoginTest {
 
     @Test
-    public void case1() throws UnsupportedEncodingException {
-        SmgpHeader header = new SmgpHeader(SmgpConst.SUBMIT_ID, 13);
+    public void case1() {
         ChannelHandlerContext ctx = Mockito.mock(ChannelHandlerContext.class);
         Mockito.when(ctx.alloc()).thenReturn(ByteBufAllocator.DEFAULT);
-        List<String> destTermIds = new ArrayList<>();
-        destTermIds.add("qwer");
-        SmgpSubmitBody submitBody = new SmgpSubmitBody((byte) 1, (byte) 2, (byte) 3, "serviceId", "feeType", "feeCode",
-                "msgFormat", "validTime", "atTime", "srcTermId",
-                "chargeTermId", (byte) 1, destTermIds, (byte) 2, "as".getBytes("utf8"), "adsd");
-        ByteBuf buf = SmgpEncoder.INSTANCE.doEncode(ctx, new SmgpSubmit(header, submitBody));
-        SmgpSubmit message = (SmgpSubmit) new SmgpDecoder().decode(buf);
-        Assertions.assertEquals("qwer", message.body().destTermId().get(0));
-        Assertions.assertEquals("srcTermId", message.body().srcTermId());
+        CngpHeader header = new CngpHeader(CngpConst.LOGIN_ID, 0, 2);
+        ByteBuf buf = CngpEncoder.INSTANCE.doEncode(ctx, new CngpLogin(header,
+                new CngpLoginBody("clientid", "authen", (byte) 1, 2, (byte) 3)));
+        CngpLogin message = (CngpLogin) new CngpDecoder().decode(buf);
+        Assertions.assertEquals("clientid", message.body().clientId());
+        Assertions.assertEquals("authen", message.body().authenticatorClient());
         Assertions.assertEquals(0, buf.readableBytes());
     }
 }
