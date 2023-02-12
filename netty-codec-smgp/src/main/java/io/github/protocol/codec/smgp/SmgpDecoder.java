@@ -109,7 +109,8 @@ public class SmgpDecoder extends LengthFieldBasedFrameDecoder {
             destTermIds.add(readString(frame, SmgpConst.LEN_DEST_TERM_ID));
         }
         byte msgLength = frame.readByte();
-        String msgContent = readString(frame, msgLength);
+        byte[] msgContent = new byte[msgLength];
+        frame.readBytes(msgContent);
         String reserve = readString(frame, SmgpConst.LEN_SUBMIT_RESERVE);
         return new SmgpSubmitBody(subType, needReport, priority, serviceId, feeType, feeCode, msgFormat, validTime,
                 atTime, srcTermId, chargeTermId, destTermIdCount, destTermIds, msgLength, msgContent, reserve);

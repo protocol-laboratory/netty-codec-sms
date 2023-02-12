@@ -17,11 +17,13 @@
  * under the License.
  */
 
-package io.github.protocol.codec.smgp;
+package io.github.protocol.codec.cngp;
 
 import java.util.List;
 
-public class SmgpSubmitBody {
+public class CngpSubmitBody {
+
+    private final String spId;
 
     private final byte subType;
 
@@ -32,6 +34,8 @@ public class SmgpSubmitBody {
     private final String serviceId;
 
     private final String feeType;
+
+    private final String feeUserType;
 
     private final String feeCode;
 
@@ -53,18 +57,17 @@ public class SmgpSubmitBody {
 
     private final byte[] msgContent;
 
-    private final String reserve;
-
-
-    public SmgpSubmitBody(byte subType, byte needReport, byte priority, String serviceId, String feeType,
-                          String feeCode, String msgFormat, String validTime, String atTime, String srcTermId,
-                          String chargeTermId, byte destTermIdCount, List<String> destTermId, byte msgLength,
-                          byte[] msgContent, String reserve) {
+    public CngpSubmitBody(String spId, byte subType, byte needReport, byte priority, String serviceId, String feeType,
+                          String feeUserType, String feeCode, String msgFormat, String validTime, String atTime,
+                          String srcTermId, String chargeTermId, byte destTermIdCount, List<String> destTermId,
+                          byte msgLength, byte[] msgContent) {
+        this.spId = spId;
         this.subType = subType;
         this.needReport = needReport;
         this.priority = priority;
         this.serviceId = serviceId;
         this.feeType = feeType;
+        this.feeUserType = feeUserType;
         this.feeCode = feeCode;
         this.msgFormat = msgFormat;
         this.validTime = validTime;
@@ -75,70 +78,74 @@ public class SmgpSubmitBody {
         this.destTermId = destTermId;
         this.msgLength = msgLength;
         this.msgContent = msgContent;
-        this.reserve = reserve;
+    }
+
+    public String spId() {
+        return spId;
     }
 
     public byte subType() {
-        return this.subType;
+        return subType;
     }
 
     public byte needReport() {
-        return this.needReport;
+        return needReport;
     }
 
     public byte priority() {
-        return this.priority;
+        return priority;
     }
 
     public String serviceId() {
-        return this.serviceId;
+        return serviceId;
     }
 
     public String feeType() {
-        return this.feeType;
+        return feeType;
+    }
+
+    public String feeUserType() {
+        return feeUserType;
     }
 
     public String feeCode() {
-        return this.feeCode;
+        return feeCode;
     }
 
     public String msgFormat() {
-        return this.msgFormat;
+        return msgFormat;
     }
 
     public String validTime() {
-        return this.validTime;
+        return validTime;
     }
 
     public String atTime() {
-        return this.atTime;
+        return atTime;
     }
 
     public String srcTermId() {
-        return this.srcTermId;
+        return srcTermId;
     }
 
     public String chargeTermId() {
-        return this.chargeTermId;
+        return chargeTermId;
     }
 
     public byte destTermIdCount() {
-        return this.destTermIdCount;
+        return destTermIdCount;
     }
 
     public List<String> destTermId() {
-        return this.destTermId;
+        return destTermId;
     }
 
     public byte msgLength() {
-        return this.msgLength;
+        return msgLength;
     }
 
     public byte[] msgContent() {
-        return this.msgContent;
+        return msgContent;
     }
 
-    public String reserve() {
-        return this.reserve;
-    }
 }

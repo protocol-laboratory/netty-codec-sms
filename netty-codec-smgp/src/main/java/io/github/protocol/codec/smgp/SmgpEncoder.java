@@ -98,7 +98,7 @@ public class SmgpEncoder extends MessageToMessageEncoder<SmgpMessage> {
             writeString(buf, destTermId, SmgpConst.LEN_DEST_TERM_ID);
         }
         buf.writeByte(message.body().msgLength());
-        writeString(buf, message.body().msgContent(), message.body().msgLength());
+        buf.writeBytes(message.body().msgContent());
         writeString(buf, message.body().reserve(), SmgpConst.LEN_SUBMIT_RESERVE);
         return buf;
     }

@@ -19,22 +19,9 @@
 
 package io.github.protocol.codec.cngp;
 
-public class CngpMessage<T> {
+public class CngpActiveRespTest extends CngpMessage<Object> {
 
-    private final CngpHeader header;
-
-    private final T body;
-
-    public CngpMessage(CngpHeader header, T body) {
-        this.header = header;
-        this.body = body;
-    }
-
-    public CngpHeader header() {
-        return this.header;
-    }
-
-    public T body() {
-        return this.body;
+    public CngpActiveRespTest(CngpHeader header) {
+        super(header, null);
     }
 }
