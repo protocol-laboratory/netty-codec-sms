@@ -27,7 +27,7 @@ public class CmppSubmitRespBody {
 
     public CmppSubmitRespBody(long msgId, int result) {
         this.msgId = msgId;
-        this.result -= result;
+        this.result = result;
     }
 
     public long msgId() {
