@@ -103,8 +103,25 @@ public class SgipConst {
 
     public static final int LEN_BIND_RESP_MSG = 9;
 
+    public static final int LEN_DELIVER_MSG = SgipConst.LEN_HEADER + 16;
+
+    public static final int LEN_DELIVER_RESP_MSG = SgipConst.LEN_HEADER + 8;
+
+    public static final int LEN_HEADER = 16;
+
     public static final int LEN_LOGIN_NAME = 16;
 
     public static final int LEN_LOGIN_PASSWORD = 16;
 
+    public static final int LEN_REPORT_MSG = SgipConst.LEN_HEADER + 32;
+    public static final int LEN_REPORT_RESP_MSG = SgipConst.LEN_HEADER + 8;
+    public static final int LEN_SUBMIT_MSG = SgipConst.LEN_HEADER + 56;
+
+    public static final int LEN_SUBMIT_RESP_MSG = SgipConst.LEN_HEADER + 8;
+
+    public static final int LEN_TRACE_MSG = SgipConst.LEN_HEADER + 8;
+
+    public static final int LEN_TRACE_RESP_MSG = SgipConst.LEN_HEADER + 16;
+    public static final int LEN_USERRPT_MSG = SgipConst.LEN_HEADER + 8;
+    public static final int LEN_USERRPT_RESP_MSG = SgipConst.LEN_HEADER + 8;
 }
