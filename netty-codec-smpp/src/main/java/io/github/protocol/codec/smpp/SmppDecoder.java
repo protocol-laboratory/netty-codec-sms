@@ -77,10 +77,24 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
                 return new SmppDeliverSm(header, decodeDeliverSmBody(frame));
             case SmppConst.DELIVER_SM_RESP_ID:
                 return new SmppDeliverSmResp(header, decodeDeliverSmRespBody(frame));
+            case SmppConst.UNBIND_ID:
+                return new SmppUnbind(header);
+            case SmppConst.UNBIND_RESP_ID:
+                return new SmppUnbindResp(header);
+            case SmppConst.REPLACE_SM_ID:
+                return new SmppReplaceSm(header, decodeReplaceSm(frame));
+            case SmppConst.REPLACE_SM_RESP_ID:
+                return new SmppReplaceSmResp(header);
+            case SmppConst.CANCEL_SM_ID:
+                return new SmppCancelSm(header, decodeCancelSm(frame));
+            case SmppConst.CANCEL_SM_RESP_ID:
+                return new SmppCancelSmResp(header);
             case SmppConst.BIND_TRANSCEIVER_ID:
                 return new SmppBindTransceiver(header, decodeBindTransceiverBody(frame));
             case SmppConst.BIND_TRANSCEIVER_RESP_ID:
                 return new SmppBindTransceiverResp(header, decodeBindTransceiverRespBody(frame));
+            case SmppConst.OUTBIND_ID:
+                return new SmppOutBind(header, decodeOutBind(frame));
             case SmppConst.ENQUIRE_LINK_ID:
                 return new SmppEnquireLink(header);
             case SmppConst.ENQUIRE_LINK_RESP_ID:
@@ -206,6 +220,34 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
         return new SmppDeliverSmRespBody(messageId);
     }
 
+    private SmppReplaceSmBody decodeReplaceSm(ByteBuf frame) {
+        String messageId = readCString(frame);
+        byte sourceAddrTon = frame.readByte();
+        byte sourceAddrNpi = frame.readByte();
+        String sourceAddr = readCString(frame);
+        String scheduleDeliveryTime = readCString(frame);
+        String validityPeriod = readCString(frame);
+        byte registeredDelivery = frame.readByte();
+        byte smDefaultMsgId = frame.readByte();
+        byte smLength = frame.readByte();
+        String shortMessage = readCString(frame);
+        return new SmppReplaceSmBody(messageId, sourceAddrTon, sourceAddrNpi, sourceAddr, scheduleDeliveryTime,
+                validityPeriod, registeredDelivery, smDefaultMsgId, smLength, shortMessage);
+    }
+
+    private SmppCancelSmBody decodeCancelSm(ByteBuf frame) {
+        String serviceType = readCString(frame);
+        String messageId = readCString(frame);
+        byte sourceAddrTon = frame.readByte();
+        byte sourceAddrNpi = frame.readByte();
+        String sourceAddr = readCString(frame);
+        byte destAddrTon = frame.readByte();
+        byte destAddrNpi = frame.readByte();
+        String destAddr = readCString(frame);
+        return new SmppCancelSmBody(serviceType, messageId, sourceAddrTon, sourceAddrNpi, sourceAddr, destAddrTon,
+                destAddrNpi, destAddr);
+    }
+
     private SmppBindTransceiverBody decodeBindTransceiverBody(ByteBuf frame) {
         String systemId = readCString(frame);
         String password = readCString(frame);
@@ -221,6 +263,13 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
     private SmppBindTransceiverRespBody decodeBindTransceiverRespBody(ByteBuf frame) {
         String systemId = readCString(frame);
         return new SmppBindTransceiverRespBody(systemId);
+    }
+
+
+    private SmppOutBindBody decodeOutBind(ByteBuf frame) {
+        String systemId = readCString(frame);
+        String password = readCString(frame);
+        return new SmppOutBindBody(systemId, password);
     }
 
     private SmppSubmitMultiBody decodeSubmitMultiBody(ByteBuf frame) {
