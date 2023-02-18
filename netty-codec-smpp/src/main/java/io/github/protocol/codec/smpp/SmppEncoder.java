@@ -60,10 +60,23 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
                 return encodeDeliverSm(ctx, (SmppDeliverSm) message);
             case SmppConst.DELIVER_SM_RESP_ID:
                 return encodeDeliverSmResp(ctx, (SmppDeliverSmResp) message);
+            case SmppConst.UNBIND_ID:
+            case SmppConst.UNBIND_RESP_ID:
+                return encodeHeader(ctx, message.header());
+            case SmppConst.REPLACE_SM_ID:
+                return encodeReplaceSm(ctx, (SmppReplaceSm) message);
+            case SmppConst.REPLACE_SM_RESP_ID:
+                return encodeHeader(ctx, message.header());
+            case SmppConst.CANCEL_SM_ID:
+                return encodeCancelSm(ctx, (SmppCancelSm) message);
+            case SmppConst.CANCEL_SM_RESP_ID:
+                return encodeHeader(ctx, message.header());
             case SmppConst.BIND_TRANSCEIVER_ID:
                 return encodeBindTransceiver(ctx, (SmppBindTransceiver) message);
             case SmppConst.BIND_TRANSCEIVER_RESP_ID:
                 return encodeBindTransceiverResp(ctx, (SmppBindTransceiverResp) message);
+            case SmppConst.OUTBIND_ID:
+                return encodeOutBind(ctx, (SmppOutBind) message);
             case SmppConst.ENQUIRE_LINK_ID:
             case SmppConst.ENQUIRE_LINK_RESP_ID:
                 return encodeHeader(ctx, message.header());
@@ -264,6 +277,36 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         return buf;
     }
 
+    private ByteBuf encodeReplaceSm(ChannelHandlerContext ctx, SmppReplaceSm message) {
+        int bodyLen = SmppConst.LEN_REPLACE_MSG + message.body().smLength();
+        ByteBuf buf = ctx.alloc().buffer(bodyLen);
+        writeHeader(buf, message.header(), bodyLen);
+        writeCString(buf, message.body().messageId());
+        buf.writeByte(message.body().sourceAddrTon());
+        buf.writeByte(message.body().sourceAddrNpi());
+        writeCString(buf, message.body().sourceAddr());
+        writeCString(buf, message.body().scheduleDeliveryTime());
+        writeCString(buf, message.body().validityPeriod());
+        buf.writeByte(message.body().registeredDelivery());
+        buf.writeByte(message.body().smDefaultMsgId());
+        buf.writeByte(message.body().smLength());
+        writeCString(buf, message.body().shortMessage());
+        return buf;
+    }
+
+    private ByteBuf encodeCancelSm(ChannelHandlerContext ctx, SmppCancelSm message) {
+        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_CANCEL_MSG);
+        writeHeader(buf, message.header(), SmppConst.LEN_CANCEL_MSG);
+        writeCString(buf, message.body().serviceType());
+        writeCString(buf, message.body().messageId());
+        buf.writeByte(message.body().sourceAddrTon());
+        buf.writeByte(message.body().sourceAddrTon());
+        writeCString(buf, message.body().sourceAddr());
+        buf.writeByte(message.body().destAddrNpi());
+        buf.writeByte(message.body().destAddrTon());
+        writeCString(buf, message.body().destinationAddr());
+        return buf;
+    }
     private ByteBuf encodeBindTransceiver(ChannelHandlerContext ctx, SmppBindTransceiver bindTransceiver) {
         SmppHeader header = bindTransceiver.header();
         SmppBindTransceiverBody body = bindTransceiver.body();
@@ -294,6 +337,14 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         return buf;
     }
 
+
+    private ByteBuf encodeOutBind(ChannelHandlerContext ctx, SmppOutBind message) {
+        ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_OUT_BIND_MSG);
+        writeHeader(buf, message.header(), SmppConst.LEN_OUT_BIND_MSG);
+        writeCString(buf, message.body().systemId());
+        writeCString(buf, message.body().password());
+        return buf;
+    }
     private ByteBuf encodeSubmitMulti(ChannelHandlerContext ctx, SmppSubmitMulti submitMulti) {
         SmppHeader header = submitMulti.header();
         SmppSubmitMultiBody body = submitMulti.body();

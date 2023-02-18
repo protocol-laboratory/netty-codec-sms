@@ -21,6 +21,7 @@ package io.github.protocol.codec.smpp;
 
 public class SmppConst {
 
+
     private SmppConst() {
     }
 
@@ -84,6 +85,8 @@ public class SmppConst {
 
     public static final int LEN_ADDR_TON = 1;
 
+    public static final int LEN_CANCEL_MSG = 117 + SmppConst.LEN_HEADER;
+
     public static final int LEN_DATA_CODING = 1;
 
     public static final int LEN_DEST_ADDR_NPI = LEN_ADDR_NPI;
@@ -106,9 +109,13 @@ public class SmppConst {
 
     public static final int LEN_NUMBER_OF_DESTS = 1;
 
+    public static final int LEN_OUT_BIND_MSG = 25 + SmppConst.LEN_HEADER;
+
     public static final int LEN_PRIORITY_FLAG = 1;
 
     public static final int LEN_PROTOCOL_ID = 1;
+
+    public static final int LEN_REPLACE_MSG = 125 + SmppConst.LEN_HEADER;
 
     public static final int LEN_REGISTERED_DELIVERY = 1;
 
