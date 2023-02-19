@@ -20,6 +20,10 @@
 package io.github.protocol.codec.smpp;
 
 public class SmppBindTransmitter extends SmppMessage<SmppBindTransmitterBody> {
+    public SmppBindTransmitter(SmppHeader header) {
+        super(header);
+    }
+
     public SmppBindTransmitter(SmppHeader header, SmppBindTransmitterBody body) {
         super(header, body);
     }

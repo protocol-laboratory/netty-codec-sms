@@ -20,6 +20,9 @@
 package io.github.protocol.codec.smpp;
 
 public class SmppCancelSm extends SmppMessage<SmppCancelSmBody> {
+    public SmppCancelSm(SmppHeader header) {
+        super(header);
+    }
 
     public SmppCancelSm(SmppHeader header, SmppCancelSmBody body) {
         super(header, body);

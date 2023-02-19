@@ -60,61 +60,61 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
         switch (commandId) {
             case SmppConst.BIND_RECEIVER_ID:
                 if (reachEnd) {
-                    return new SmppBindReceiver(header, null);
+                    return new SmppBindReceiver(header);
                 } else {
                     return new SmppBindReceiver(header, decodeBindReceiverBody(frame));
                 }
             case SmppConst.BIND_RECEIVER_RESP_ID:
                 if (reachEnd) {
-                    return new SmppBindReceiverResp(header, null);
+                    return new SmppBindReceiverResp(header);
                 } else {
                     return new SmppBindReceiverResp(header, decodeBindReceiverRespBody(frame));
                 }
             case SmppConst.BIND_TRANSMITTER_ID:
                 if (reachEnd) {
-                    return new SmppBindTransmitter(header, null);
+                    return new SmppBindTransmitter(header);
                 } else {
                     return new SmppBindTransmitter(header, decodeBindTransmitterBody(frame));
                 }
             case SmppConst.BIND_TRANSMITTER_RESP_ID:
                 if (reachEnd) {
-                    return new SmppBindTransmitterResp(header, null);
+                    return new SmppBindTransmitterResp(header);
                 } else {
                     return new SmppBindTransmitterResp(header, decodeBindTransmitterRespBody(frame));
                 }
             case SmppConst.QUERY_SM_ID:
                 if (reachEnd) {
-                    return new SmppQuerySm(header, null);
+                    return new SmppQuerySm(header);
                 } else {
                     return new SmppQuerySm(header, decodeQuerySmBody(frame));
                 }
             case SmppConst.QUERY_SM_RESP_ID:
                 if (reachEnd) {
-                    return new SmppQuerySmResp(header, null);
+                    return new SmppQuerySmResp(header);
                 } else {
                     return new SmppQuerySmResp(header, decodeQuerySmRespBody(frame));
                 }
             case SmppConst.SUBMIT_SM_ID:
                 if (reachEnd) {
-                    return new SmppSubmitSm(header, null);
+                    return new SmppSubmitSm(header);
                 } else {
                     return new SmppSubmitSm(header, decodeSubmitSmBody(frame));
                 }
             case SmppConst.SUBMIT_SM_RESP_ID:
                 if (reachEnd) {
-                    return new SmppSubmitSmResp(header, null);
+                    return new SmppSubmitSmResp(header);
                 } else {
                     return new SmppSubmitSmResp(header, decodeSubmitSmRespBody(frame));
                 }
             case SmppConst.DELIVER_SM_ID:
                 if (reachEnd) {
-                    return new SmppDeliverSm(header, null);
+                    return new SmppDeliverSm(header);
                 } else {
                     return new SmppDeliverSm(header, decodeDeliverSmBody(frame));
                 }
             case SmppConst.DELIVER_SM_RESP_ID:
                 if (reachEnd) {
-                    return new SmppDeliverSmResp(header, null);
+                    return new SmppDeliverSmResp(header);
                 } else {
                     return new SmppDeliverSmResp(header, decodeDeliverSmRespBody(frame));
                 }
@@ -124,7 +124,7 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
                 return new SmppUnbindResp(header);
             case SmppConst.REPLACE_SM_ID:
                 if (reachEnd) {
-                    return new SmppReplaceSm(header, null);
+                    return new SmppReplaceSm(header);
                 } else {
                     return new SmppReplaceSm(header, decodeReplaceSm(frame));
                 }
@@ -132,7 +132,7 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
                 return new SmppReplaceSmResp(header);
             case SmppConst.CANCEL_SM_ID:
                 if (reachEnd) {
-                    return new SmppCancelSm(header, null);
+                    return new SmppCancelSm(header);
                 } else {
                     return new SmppCancelSm(header, decodeCancelSm(frame));
                 }
@@ -140,19 +140,19 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
                 return new SmppCancelSmResp(header);
             case SmppConst.BIND_TRANSCEIVER_ID:
                 if (reachEnd) {
-                    return new SmppBindTransceiver(header, null);
+                    return new SmppBindTransceiver(header);
                 } else {
                     return new SmppBindTransceiver(header, decodeBindTransceiverBody(frame));
                 }
             case SmppConst.BIND_TRANSCEIVER_RESP_ID:
                 if (reachEnd) {
-                    return new SmppBindTransceiverResp(header, null);
+                    return new SmppBindTransceiverResp(header);
                 } else {
                     return new SmppBindTransceiverResp(header, decodeBindTransceiverRespBody(frame));
                 }
             case SmppConst.OUTBIND_ID:
                 if (reachEnd) {
-                    return new SmppOutBind(header, null);
+                    return new SmppOutBind(header);
                 } else {
                     return new SmppOutBind(header, decodeOutBind(frame));
                 }
@@ -162,13 +162,13 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
                 return new SmppEnquireLinkResp(header);
             case SmppConst.SUBMIT_MULTI_ID:
                 if (reachEnd) {
-                    return new SmppSubmitMulti(header, null);
+                    return new SmppSubmitMulti(header);
                 } else {
                     return new SmppSubmitMulti(header, decodeSubmitMultiBody(frame));
                 }
             case SmppConst.SUBMIT_MULTI_RESP_ID:
                 if (reachEnd) {
-                    return new SmppSubmitMultiResp(header, null);
+                    return new SmppSubmitMultiResp(header);
                 } else {
                     return new SmppSubmitMultiResp(header, decodeSubmitMultiRespBody(frame));
                 }
