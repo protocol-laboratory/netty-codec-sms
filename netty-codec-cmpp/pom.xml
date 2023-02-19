@@ -26,7 +26,7 @@
     <parent>
         <groupId>io.github.protocol-laboratory</groupId>
         <artifactId>netty-codec-sms</artifactId>
-        <version>0.0.5</version>
+        <version>0.0.6</version>
     </parent>
 
     <artifactId>netty-codec-cmpp</artifactId>

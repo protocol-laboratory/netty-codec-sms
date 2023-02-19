@@ -56,53 +56,122 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
         int commandStatus = frame.readInt();
         int sequenceNumber = frame.readInt();
         SmppHeader header = new SmppHeader(commandLength, commandId, commandStatus, sequenceNumber);
+        boolean reachEnd = !frame.isReadable();
         switch (commandId) {
             case SmppConst.BIND_RECEIVER_ID:
-                return new SmppBindReceiver(header, decodeBindReceiverBody(frame));
+                if (reachEnd) {
+                    return new SmppBindReceiver(header, null);
+                } else {
+                    return new SmppBindReceiver(header, decodeBindReceiverBody(frame));
+                }
             case SmppConst.BIND_RECEIVER_RESP_ID:
-                return new SmppBindReceiverResp(header, decodeBindReceiverRespBody(frame));
+                if (reachEnd) {
+                    return new SmppBindReceiverResp(header, null);
+                } else {
+                    return new SmppBindReceiverResp(header, decodeBindReceiverRespBody(frame));
+                }
             case SmppConst.BIND_TRANSMITTER_ID:
-                return new SmppBindTransmitter(header, decodeBindTransmitterBody(frame));
+                if (reachEnd) {
+                    return new SmppBindTransmitter(header, null);
+                } else {
+                    return new SmppBindTransmitter(header, decodeBindTransmitterBody(frame));
+                }
             case SmppConst.BIND_TRANSMITTER_RESP_ID:
-                return new SmppBindTransmitterResp(header, decodeBindTransmitterRespBody(frame));
+                if (reachEnd) {
+                    return new SmppBindTransmitterResp(header, null);
+                } else {
+                    return new SmppBindTransmitterResp(header, decodeBindTransmitterRespBody(frame));
+                }
             case SmppConst.QUERY_SM_ID:
-                return new SmppQuerySm(header, decodeQuerySmBody(frame));
+                if (reachEnd) {
+                    return new SmppQuerySm(header, null);
+                } else {
+                    return new SmppQuerySm(header, decodeQuerySmBody(frame));
+                }
             case SmppConst.QUERY_SM_RESP_ID:
-                return new SmppQuerySmResp(header, decodeQuerySmRespBody(frame));
+                if (reachEnd) {
+                    return new SmppQuerySmResp(header, null);
+                } else {
+                    return new SmppQuerySmResp(header, decodeQuerySmRespBody(frame));
+                }
             case SmppConst.SUBMIT_SM_ID:
-                return new SmppSubmitSm(header, decodeSubmitSmBody(frame));
+                if (reachEnd) {
+                    return new SmppSubmitSm(header, null);
+                } else {
+                    return new SmppSubmitSm(header, decodeSubmitSmBody(frame));
+                }
             case SmppConst.SUBMIT_SM_RESP_ID:
-                return new SmppSubmitSmResp(header, decodeSubmitSmRespBody(frame));
+                if (reachEnd) {
+                    return new SmppSubmitSmResp(header, null);
+                } else {
+                    return new SmppSubmitSmResp(header, decodeSubmitSmRespBody(frame));
+                }
             case SmppConst.DELIVER_SM_ID:
-                return new SmppDeliverSm(header, decodeDeliverSmBody(frame));
+                if (reachEnd) {
+                    return new SmppDeliverSm(header, null);
+                } else {
+                    return new SmppDeliverSm(header, decodeDeliverSmBody(frame));
+                }
             case SmppConst.DELIVER_SM_RESP_ID:
-                return new SmppDeliverSmResp(header, decodeDeliverSmRespBody(frame));
+                if (reachEnd) {
+                    return new SmppDeliverSmResp(header, null);
+                } else {
+                    return new SmppDeliverSmResp(header, decodeDeliverSmRespBody(frame));
+                }
             case SmppConst.UNBIND_ID:
                 return new SmppUnbind(header);
             case SmppConst.UNBIND_RESP_ID:
                 return new SmppUnbindResp(header);
             case SmppConst.REPLACE_SM_ID:
-                return new SmppReplaceSm(header, decodeReplaceSm(frame));
+                if (reachEnd) {
+                    return new SmppReplaceSm(header, null);
+                } else {
+                    return new SmppReplaceSm(header, decodeReplaceSm(frame));
+                }
             case SmppConst.REPLACE_SM_RESP_ID:
                 return new SmppReplaceSmResp(header);
             case SmppConst.CANCEL_SM_ID:
-                return new SmppCancelSm(header, decodeCancelSm(frame));
+                if (reachEnd) {
+                    return new SmppCancelSm(header, null);
+                } else {
+                    return new SmppCancelSm(header, decodeCancelSm(frame));
+                }
             case SmppConst.CANCEL_SM_RESP_ID:
                 return new SmppCancelSmResp(header);
             case SmppConst.BIND_TRANSCEIVER_ID:
-                return new SmppBindTransceiver(header, decodeBindTransceiverBody(frame));
+                if (reachEnd) {
+                    return new SmppBindTransceiver(header, null);
+                } else {
+                    return new SmppBindTransceiver(header, decodeBindTransceiverBody(frame));
+                }
             case SmppConst.BIND_TRANSCEIVER_RESP_ID:
-                return new SmppBindTransceiverResp(header, decodeBindTransceiverRespBody(frame));
+                if (reachEnd) {
+                    return new SmppBindTransceiverResp(header, null);
+                } else {
+                    return new SmppBindTransceiverResp(header, decodeBindTransceiverRespBody(frame));
+                }
             case SmppConst.OUTBIND_ID:
-                return new SmppOutBind(header, decodeOutBind(frame));
+                if (reachEnd) {
+                    return new SmppOutBind(header, null);
+                } else {
+                    return new SmppOutBind(header, decodeOutBind(frame));
+                }
             case SmppConst.ENQUIRE_LINK_ID:
                 return new SmppEnquireLink(header);
             case SmppConst.ENQUIRE_LINK_RESP_ID:
                 return new SmppEnquireLinkResp(header);
             case SmppConst.SUBMIT_MULTI_ID:
-                return new SmppSubmitMulti(header, decodeSubmitMultiBody(frame));
+                if (reachEnd) {
+                    return new SmppSubmitMulti(header, null);
+                } else {
+                    return new SmppSubmitMulti(header, decodeSubmitMultiBody(frame));
+                }
             case SmppConst.SUBMIT_MULTI_RESP_ID:
-                return new SmppSubmitMultiResp(header, decodeSubmitMultiRespBody(frame));
+                if (reachEnd) {
+                    return new SmppSubmitMultiResp(header, null);
+                } else {
+                    return new SmppSubmitMultiResp(header, decodeSubmitMultiRespBody(frame));
+                }
             default:
                 throw new IllegalArgumentException("Unknown commandId: " + commandId);
         }
