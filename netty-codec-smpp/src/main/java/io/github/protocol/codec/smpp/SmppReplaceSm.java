@@ -20,6 +20,9 @@
 package io.github.protocol.codec.smpp;
 
 public class SmppReplaceSm extends SmppMessage<SmppReplaceSmBody>{
+    public SmppReplaceSm(SmppHeader header) {
+        super(header);
+    }
 
     public SmppReplaceSm(SmppHeader header, SmppReplaceSmBody body) {
         super(header, body);

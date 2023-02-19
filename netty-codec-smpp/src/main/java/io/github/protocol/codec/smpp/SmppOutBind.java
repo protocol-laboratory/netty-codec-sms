@@ -20,6 +20,9 @@
 package io.github.protocol.codec.smpp;
 
 public class SmppOutBind extends SmppMessage<SmppOutBindBody> {
+    public SmppOutBind(SmppHeader header) {
+        super(header);
+    }
 
     public SmppOutBind(SmppHeader header, SmppOutBindBody body) {
         super(header, body);

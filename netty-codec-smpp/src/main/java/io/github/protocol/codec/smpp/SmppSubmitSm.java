@@ -20,6 +20,10 @@
 package io.github.protocol.codec.smpp;
 
 public class SmppSubmitSm extends SmppMessage<SmppSubmitSmBody> {
+    public SmppSubmitSm(SmppHeader header) {
+        super(header);
+    }
+
     public SmppSubmitSm(SmppHeader header, SmppSubmitSmBody body) {
         super(header, body);
     }

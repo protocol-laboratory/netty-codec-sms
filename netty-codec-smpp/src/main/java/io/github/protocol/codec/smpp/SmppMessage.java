@@ -27,6 +27,11 @@ public class SmppMessage<T> {
 
     private final T body;
 
+    public SmppMessage(SmppHeader header) {
+        this.header = header;
+        this.body = null;
+    }
+
     public SmppMessage(SmppHeader header, T body) {
         this.header = header;
         this.body = body;

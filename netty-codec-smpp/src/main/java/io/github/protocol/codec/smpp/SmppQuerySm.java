@@ -20,6 +20,10 @@
 package io.github.protocol.codec.smpp;
 
 public class SmppQuerySm extends SmppMessage<SmppQuerySmBody> {
+    public SmppQuerySm(SmppHeader header) {
+        super(header);
+    }
+
     public SmppQuerySm(SmppHeader header, SmppQuerySmBody body) {
         super(header, body);
     }
