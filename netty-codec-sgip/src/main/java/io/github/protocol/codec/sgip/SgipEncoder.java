@@ -213,7 +213,11 @@ public class SgipEncoder extends MessageToMessageEncoder<SgipMessage> {
 
     private ByteBuf encodeHeader(ChannelHandlerContext ctx, SgipHeader header) {
         ByteBuf buf = ctx.alloc().buffer(SgipConst.LEN_HEADER);
-        buf.writeInt(header.messageLength());
+        if (header.messageLength() == 0) {
+            buf.writeInt(SgipConst.LEN_HEADER);
+        } else {
+            buf.writeInt(header.messageLength());
+        }
         buf.writeInt(header.commandId());
         buf.writeLong(header.sequenceNumber());
         return buf;

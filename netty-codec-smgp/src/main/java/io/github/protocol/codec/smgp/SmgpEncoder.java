@@ -112,7 +112,11 @@ public class SmgpEncoder extends MessageToMessageEncoder<SmgpMessage> {
     }
     private ByteBuf encodeHeader(ChannelHandlerContext ctx, SmgpHeader header) {
         ByteBuf buf = ctx.alloc().buffer(SmgpConst.LEN_HEADER);
-        buf.writeInt(header.packetLength());
+        if (header.packetLength() == 0) {
+            buf.writeInt(SmgpConst.LEN_HEADER);
+        } else {
+            buf.writeInt(header.packetLength());
+        }
         buf.writeInt(header.requestID());
         buf.writeInt(header.sequenceID());
         return buf;
