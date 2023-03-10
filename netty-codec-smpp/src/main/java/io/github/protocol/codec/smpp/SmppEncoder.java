@@ -91,7 +91,11 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
 
     private ByteBuf encodeHeader(ChannelHandlerContext ctx, SmppHeader header) {
         ByteBuf buf = ctx.alloc().buffer(SmppConst.LEN_HEADER);
-        buf.writeInt(header.commandLength());
+        if (header.commandLength() == 0) {
+            buf.writeInt(SmppConst.LEN_HEADER);
+        } else {
+            buf.writeInt(header.commandLength());
+        }
         buf.writeInt(header.commandId());
         buf.writeInt(header.commandStatus());
         buf.writeInt(header.sequenceNumber());

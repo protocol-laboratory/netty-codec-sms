@@ -59,7 +59,11 @@ public class CmppEncoder extends MessageToMessageEncoder<CmppMessage> {
 
     private ByteBuf encodeHeader(ChannelHandlerContext ctx, CmppHeader header) {
         ByteBuf buf = ctx.alloc().buffer(CmppConst.LEN_HEADER);
-        buf.writeInt(header.totalLength());
+        if (header.totalLength() == 0) {
+            buf.writeInt(CmppConst.LEN_HEADER);
+        } else {
+            buf.writeInt(header.totalLength());
+        }
         buf.writeInt(header.commandId());
         buf.writeInt(header.sequenceId());
         return buf;
