@@ -26,7 +26,7 @@
 
     <groupId>io.github.protocol-laboratory</groupId>
     <artifactId>netty-codec-sms</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8</version>
     <packaging>pom</packaging>
     <modules>
         <module>netty-codec-cmpp</module>
@@ -43,13 +43,13 @@
         <src.dir>src/main/java</src.dir>
         <!-- dependency -->
         <junit-jupiter-engine.version>5.9.2</junit-jupiter-engine.version>
-        <log4j.version>2.19.0</log4j.version>
-        <mockito.version>4.11.0</mockito.version>
-        <netty.version>4.1.87.Final</netty.version>
+        <log4j.version>2.20.0</log4j.version>
+        <mockito.version>5.2.0</mockito.version>
+        <netty.version>4.1.90.Final</netty.version>
         <!-- plugin -->
         <compiler-plugin.version>3.10.1</compiler-plugin.version>
         <checkstyle-plugin.version>3.2.0</checkstyle-plugin.version>
-        <puppycrawl.version>10.3.3</puppycrawl.version>
+        <puppycrawl.version>10.9.3</puppycrawl.version>
         <spotbugs-maven-plugin.version>4.7.2.0</spotbugs-maven-plugin.version>
     </properties>
 
