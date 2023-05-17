@@ -244,7 +244,7 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
         byte replaceIfPresentFlag = frame.readByte();
         byte dataCoding = frame.readByte();
         byte smDefaultMsgId = frame.readByte();
-        byte smLength = frame.readByte();
+        short smLength = frame.readShort();
         byte[] shortMessage = new byte[smLength];
         frame.readBytes(shortMessage);
         return new SmppSubmitSmBody(serviceType, sourceAddrTon, sourceAddrNpi, sourceAddr,

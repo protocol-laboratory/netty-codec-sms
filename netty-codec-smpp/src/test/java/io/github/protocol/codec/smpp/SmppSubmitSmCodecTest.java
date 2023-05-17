@@ -21,7 +21,7 @@ public class SmppSubmitSmCodecTest {
                 (byte) 1, (byte) 2, "src",
                 (byte) 3, (byte) 4, "dst",
                 (byte) 4, (byte) 3, (byte) 2, "time",
-                "period", (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) shortMessage.length,
+                "period", (byte) 1, (byte) 2, (byte) 3, (byte) 4, (short) shortMessage.length,
                 shortMessage);
         ChannelHandlerContext ctx = Mockito.mock(ChannelHandlerContext.class);
         Mockito.when(ctx.alloc()).thenReturn(ByteBufAllocator.DEFAULT);
@@ -43,9 +43,25 @@ public class SmppSubmitSmCodecTest {
         Assertions.assertEquals((byte) 2, submitSm.body().replaceIfPresentFlag());
         Assertions.assertEquals((byte) 3, submitSm.body().dataCoding());
         Assertions.assertEquals((byte) 4, submitSm.body().smDefaultMsgId());
-        Assertions.assertEquals((byte) shortMessage.length, submitSm.body().smLength());
+        Assertions.assertEquals((short) shortMessage.length, submitSm.body().smLength());
         Assertions.assertArrayEquals(shortMessage, submitSm.body().shortMessage());
         Assertions.assertEquals(0, byteBuf.readableBytes());
+    }
+
+    @Test
+    public void caseMessageLengthBiggerThan254() {
+        StringBuilder target = new StringBuilder();
+        int length = 255 / 5;
+        while (length-- > 0) {
+            target.append("hello");
+        }
+        byte[] shortMessage = target.toString().getBytes(StandardCharsets.UTF_8);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new SmppSubmitSmBody("type",
+                (byte) 1, (byte) 2, "src",
+                (byte) 3, (byte) 4, "dst",
+                (byte) 4, (byte) 3, (byte) 2, "time",
+                "period", (byte) 1, (byte) 2, (byte) 3, (byte) 4, (short) shortMessage.length,
+                shortMessage));
     }
 
 }
