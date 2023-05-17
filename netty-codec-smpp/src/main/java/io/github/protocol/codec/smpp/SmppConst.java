@@ -129,4 +129,6 @@ public class SmppConst {
 
     public static final int LEN_SOURCE_ADDR_TON = LEN_ADDR_TON;
 
+    public static final short TAG_MESSAGE_PAYLOAD = 0x0424;
+
 }
