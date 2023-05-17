@@ -221,7 +221,7 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         buf.writeByte(body.replaceIfPresentFlag());
         buf.writeByte(body.dataCoding());
         buf.writeByte(body.smDefaultMsgId());
-        buf.writeByte(body.smLength());
+        buf.writeShort(body.smLength());
         buf.writeBytes(body.shortMessage());
         return buf;
     }
