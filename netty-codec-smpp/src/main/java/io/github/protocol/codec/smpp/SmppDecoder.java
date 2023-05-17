@@ -247,10 +247,14 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
         short smLength = frame.readShort();
         byte[] shortMessage = new byte[smLength];
         frame.readBytes(shortMessage);
+        TagLengthValue messagePayLoad = null;
+        if (frame.isReadable()) {
+            messagePayLoad = TagLengthValue.decode(frame);
+        }
         return new SmppSubmitSmBody(serviceType, sourceAddrTon, sourceAddrNpi, sourceAddr,
                 destAddrTon, destAddrNpi, destinationAddr, esmClass, protocolId, priorityFlag,
                 scheduleDeliveryTime, validityPeriod, registeredDelivery, replaceIfPresentFlag,
-                dataCoding, smDefaultMsgId, smLength, shortMessage);
+                dataCoding, smDefaultMsgId, smLength, shortMessage, messagePayLoad);
     }
 
     private SmppSubmitSmRespBody decodeSubmitSmRespBody(ByteBuf frame) {

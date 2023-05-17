@@ -202,6 +202,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
                 + SmppConst.LEN_REGISTERED_DELIVERY + SmppConst.LEN_REPLACE_IF_PRESENT_FLAG
                 + SmppConst.LEN_DATA_CODING + SmppConst.LEN_SM_DEFAULT_MSG_ID + SmppConst.LEN_SM_LENGTH
                 + body.smLength();
+        if (body.messagePayload() != null) {
+            bodySize += body.messagePayload().tlvLength();
+        }
         int size = SmppConst.LEN_HEADER + bodySize;
         ByteBuf buf = ctx.alloc().buffer(size);
         writeHeader(buf, header, size);
@@ -223,6 +226,9 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         buf.writeByte(body.smDefaultMsgId());
         buf.writeShort(body.smLength());
         buf.writeBytes(body.shortMessage());
+        if (body.messagePayload() != null) {
+            buf.writeBytes(body.messagePayload().encode(ctx));
+        }
         return buf;
     }
 

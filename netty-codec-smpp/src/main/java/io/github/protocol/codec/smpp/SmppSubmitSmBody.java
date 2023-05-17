@@ -57,12 +57,42 @@ public class SmppSubmitSmBody {
 
     private final byte[] shortMessage;
 
+    private final TagLengthValue messagePayload;
+
     public SmppSubmitSmBody(String serviceType, byte sourceAddrTon, byte sourceAddrNpi, String sourceAddr,
                             byte destAddrTon, byte destAddrNpi, String destinationAddr,
                             byte esmClass, byte protocolId, byte priorityFlag,
                             String scheduleDeliveryTime, String validityPeriod, byte registeredDelivery,
                             byte replaceIfPresentFlag, byte dataCoding, byte smDefaultMsgId,
                             short smLength, byte[] shortMessage) {
+        this(serviceType, sourceAddrTon, sourceAddrNpi, sourceAddr,
+                destAddrTon, destAddrNpi, destinationAddr,
+                esmClass, protocolId, priorityFlag,
+                scheduleDeliveryTime, validityPeriod, registeredDelivery,
+                replaceIfPresentFlag, dataCoding, smDefaultMsgId,
+                smLength, shortMessage, null);
+    }
+
+    public SmppSubmitSmBody(String serviceType, byte sourceAddrTon, byte sourceAddrNpi, String sourceAddr,
+                            byte destAddrTon, byte destAddrNpi, String destinationAddr,
+                            byte esmClass, byte protocolId, byte priorityFlag,
+                            String scheduleDeliveryTime, String validityPeriod, byte registeredDelivery,
+                            byte replaceIfPresentFlag, byte dataCoding, byte smDefaultMsgId,
+                            TagLengthValue messagePayload) {
+        this(serviceType, sourceAddrTon, sourceAddrNpi, sourceAddr,
+                destAddrTon, destAddrNpi, destinationAddr,
+                esmClass, protocolId, priorityFlag,
+                scheduleDeliveryTime, validityPeriod, registeredDelivery,
+                replaceIfPresentFlag, dataCoding, smDefaultMsgId,
+                (short) 0, new byte[0], messagePayload);
+    }
+
+    public SmppSubmitSmBody(String serviceType, byte sourceAddrTon, byte sourceAddrNpi, String sourceAddr,
+                            byte destAddrTon, byte destAddrNpi, String destinationAddr,
+                            byte esmClass, byte protocolId, byte priorityFlag,
+                            String scheduleDeliveryTime, String validityPeriod, byte registeredDelivery,
+                            byte replaceIfPresentFlag, byte dataCoding, byte smDefaultMsgId,
+                            short smLength, byte[] shortMessage, TagLengthValue messagePayload) {
         this.serviceType = serviceType;
         this.sourceAddrTon = sourceAddrTon;
         this.sourceAddrNpi = sourceAddrNpi;
@@ -79,12 +109,22 @@ public class SmppSubmitSmBody {
         this.replaceIfPresentFlag = replaceIfPresentFlag;
         this.dataCoding = dataCoding;
         this.smDefaultMsgId = smDefaultMsgId;
-        this.smLength = smLength;
-        if (smLength >= 0xff) {
-            throw new IllegalArgumentException("sm length cannot be bigger than 254. "
-                    + "if you want longer message, please use message payload");
+        if (messagePayload != null) {
+            this.smLength = 0;
+            this.shortMessage = new byte[0];
+        } else {
+            this.smLength = smLength;
+            this.shortMessage = shortMessage;
+            if (smLength >= 0xff) {
+                throw new IllegalArgumentException("sm length cannot be bigger than 254. "
+                        + "if you want longer message, please use message payload");
+            }
         }
-        this.shortMessage = shortMessage;
+        if (messagePayload != null && messagePayload.length() > 0xffff) {
+            throw new IllegalArgumentException(String.format("max of message payload length is 64k - 1, "
+                    + "your payload length is %d", messagePayload.length()));
+        }
+        this.messagePayload = messagePayload;
     }
 
     public String serviceType() {
@@ -157,5 +197,9 @@ public class SmppSubmitSmBody {
 
     public byte[] shortMessage() {
         return shortMessage;
+    }
+
+    public TagLengthValue messagePayload() {
+        return messagePayload;
     }
 }
