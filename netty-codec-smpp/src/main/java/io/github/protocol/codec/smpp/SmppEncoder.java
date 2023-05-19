@@ -224,7 +224,7 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         buf.writeByte(body.replaceIfPresentFlag());
         buf.writeByte(body.dataCoding());
         buf.writeByte(body.smDefaultMsgId());
-        buf.writeShort(body.smLength());
+        buf.writeByte(body.smLength() & SmppConst.UNSIGNED_BYTE_MAX);
         buf.writeBytes(body.shortMessage());
         if (body.messagePayload() != null) {
             buf.writeBytes(body.messagePayload().encode(ctx));
@@ -271,7 +271,7 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         buf.writeByte(body.replaceIfPresentFlag());
         buf.writeByte(body.dataCoding());
         buf.writeByte(body.smDefaultMsgId());
-        buf.writeByte(body.smLength());
+        buf.writeByte(body.smLength() & SmppConst.UNSIGNED_BYTE_MAX);
         buf.writeBytes(body.shortMessage());
         return buf;
     }
@@ -389,7 +389,7 @@ public class SmppEncoder extends MessageToMessageEncoder<SmppMessage> {
         buf.writeByte(body.replaceIfPresentFlag());
         buf.writeByte(body.dataCoding());
         buf.writeByte(body.smDefaultMsgId());
-        buf.writeByte(body.smLength());
+        buf.writeByte(body.smLength() & SmppConst.UNSIGNED_BYTE_MAX);
         buf.writeBytes(body.shortMessage());
         return buf;
     }

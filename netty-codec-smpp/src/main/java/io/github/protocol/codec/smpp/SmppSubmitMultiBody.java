@@ -53,7 +53,7 @@ public class SmppSubmitMultiBody {
 
     private final byte smDefaultMsgId;
 
-    private final byte smLength;
+    private final short smLength;
 
     private final byte[] shortMessage;
 
@@ -61,7 +61,7 @@ public class SmppSubmitMultiBody {
                                byte numberOfDests, List<DestAddress> destAddresses, byte esmClass,
                                byte protocolId, byte priorityFlag, String scheduleDeliveryTime,
                                String validityPeriod, byte registeredDelivery, byte replaceIfPresentFlag,
-                               byte dataCoding, byte smDefaultMsgId, byte smLength, byte[] shortMessage) {
+                               byte dataCoding, byte smDefaultMsgId, short smLength, byte[] shortMessage) {
         this.serviceType = serviceType;
         this.sourceAddrTon = sourceAddrTon;
         this.sourceAddrNpi = sourceAddrNpi;
@@ -78,6 +78,9 @@ public class SmppSubmitMultiBody {
         this.dataCoding = dataCoding;
         this.smDefaultMsgId = smDefaultMsgId;
         this.smLength = smLength;
+        if (smLength >= SmppConst.UNSIGNED_BYTE_MAX) {
+            throw new IllegalArgumentException("sm length cannot be bigger than 254.");
+        }
         this.shortMessage = shortMessage;
     }
 
@@ -141,7 +144,7 @@ public class SmppSubmitMultiBody {
         return smDefaultMsgId;
     }
 
-    public byte smLength() {
+    public short smLength() {
         return smLength;
     }
 
