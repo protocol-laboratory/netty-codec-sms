@@ -43,21 +43,21 @@ public class TagLengthValue {
     public ByteBuf encode(ChannelHandlerContext ctx) {
         ByteBuf buf = ctx.alloc().buffer(this.tlvLength());
         buf.writeShort(this.tag);
-        buf.writeInt(this.length);
+        buf.writeShort(this.length & SmppConst.UNSIGNED_SHORT_MAX);
         buf.writeBytes(this.value);
         return buf;
     }
 
     public static TagLengthValue decode(ByteBuf byteBuf) {
         short tag = byteBuf.readShort();
-        int length = byteBuf.readInt();
+        int length = byteBuf.readUnsignedShort();
         byte[] value = new byte[length];
         byteBuf.readBytes(value);
         return new TagLengthValue(tag, length, value);
     }
 
     public int tlvLength() {
-        return 2 + 4 + this.length;
+        return 2 + 2 + this.length;
     }
 
     public short tag() {

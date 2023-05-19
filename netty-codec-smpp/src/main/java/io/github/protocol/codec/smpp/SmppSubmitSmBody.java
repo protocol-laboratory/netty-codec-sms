@@ -115,12 +115,12 @@ public class SmppSubmitSmBody {
         } else {
             this.smLength = smLength;
             this.shortMessage = shortMessage;
-            if (smLength >= 0xff) {
+            if (smLength >= SmppConst.UNSIGNED_BYTE_MAX) {
                 throw new IllegalArgumentException("sm length cannot be bigger than 254. "
                         + "if you want longer message, please use message payload");
             }
         }
-        if (messagePayload != null && messagePayload.length() > 0xffff) {
+        if (messagePayload != null && messagePayload.length() > SmppConst.UNSIGNED_SHORT_MAX) {
             throw new IllegalArgumentException(String.format("max of message payload length is 64k - 1, "
                     + "your payload length is %d", messagePayload.length()));
         }

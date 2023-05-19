@@ -244,7 +244,7 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
         byte replaceIfPresentFlag = frame.readByte();
         byte dataCoding = frame.readByte();
         byte smDefaultMsgId = frame.readByte();
-        short smLength = frame.readShort();
+        short smLength = frame.readUnsignedByte();
         byte[] shortMessage = new byte[smLength];
         frame.readBytes(shortMessage);
         TagLengthValue messagePayLoad = null;
@@ -279,7 +279,7 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
         byte replaceIfPresentFlag = frame.readByte();
         byte dataCoding = frame.readByte();
         byte smDefaultMsgId = frame.readByte();
-        byte smLength = frame.readByte();
+        short smLength = frame.readUnsignedByte();
         byte[] shortMessage = new byte[smLength];
         frame.readBytes(shortMessage);
         return new SmppDeliverSmBody(serviceType, sourceAddrTon, sourceAddrNpi, sourceAddr,
@@ -367,7 +367,7 @@ public class SmppDecoder extends LengthFieldBasedFrameDecoder {
         byte replaceIfPresentFlag = frame.readByte();
         byte dataCoding = frame.readByte();
         byte smDefaultMsgId = frame.readByte();
-        byte smLength = frame.readByte();
+        short smLength = frame.readUnsignedByte();
         byte[] shortMessage = new byte[smLength];
         frame.readBytes(shortMessage);
         return new SmppSubmitMultiBody(serviceType, sourceAddrTon, sourceAddrNpi, sourceAddr,

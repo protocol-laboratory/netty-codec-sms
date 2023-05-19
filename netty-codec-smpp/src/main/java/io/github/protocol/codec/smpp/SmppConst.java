@@ -131,4 +131,8 @@ public class SmppConst {
 
     public static final short TAG_MESSAGE_PAYLOAD = 0x0424;
 
+    public static final int UNSIGNED_BYTE_MAX = 0xff;
+
+    public static final int UNSIGNED_SHORT_MAX = 0xffff;
+
 }
