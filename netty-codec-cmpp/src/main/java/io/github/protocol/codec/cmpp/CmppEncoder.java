@@ -89,7 +89,9 @@ public class CmppEncoder extends MessageToMessageEncoder<CmppMessage> {
     }
 
     private ByteBuf encodeSubmit(ChannelHandlerContext ctx, CmppSubmit message) {
-        int bodySize = CmppConst.LEN_SUBMIT_BODY_SIZE + CmppConst.LEN_DEST_TERMINAL_ID * message.body().destUsrTl();
+        int msgLength = message.body().msgLength() & CmppConst.UNSIGNED_BYTE_MAX;
+        int bodySize = CmppConst.LEN_SUBMIT_BODY_SIZE + CmppConst.LEN_DEST_TERMINAL_ID * message.body().destUsrTl()
+                + msgLength;
         ByteBuf buf = ctx.alloc().buffer(bodySize);
         writeHeader(buf, message.header(), bodySize);
         buf.writeLong(message.body().msgId());
@@ -115,8 +117,8 @@ public class CmppEncoder extends MessageToMessageEncoder<CmppMessage> {
             writeString(buf, destTerminalId, CmppConst.LEN_DEST_TERMINAL_ID);
         }
         buf.writeByte(message.body().destTerminalType());
-        buf.writeByte(message.body().msgLength());
-        writeString(buf, message.body().msgContent(), CmppConst.LEN_MESSAGE_CONTENT);
+        buf.writeByte(msgLength);
+        buf.writeBytes(message.body().msgContent());
         writeString(buf, message.body().linkId(), CmppConst.LEN_LINK_ID);
         return buf;
     }

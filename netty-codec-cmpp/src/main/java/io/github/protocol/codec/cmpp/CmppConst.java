@@ -109,8 +109,6 @@ public class CmppConst {
 
     public static final int LEN_LINK_ID = 20;
 
-    public static final int LEN_MESSAGE_CONTENT = 1;
-
     public static final int LEN_MESSAGE_SRC = 6;
 
     public static final int LEN_SERVICE_ID = 10;
@@ -119,7 +117,7 @@ public class CmppConst {
 
     public static final int LEN_SRC_ID = 21;
 
-    public static final int LEN_SUBMIT_BODY_SIZE = CmppConst.LEN_HEADER + 152;
+    public static final int LEN_SUBMIT_BODY_SIZE = CmppConst.LEN_HEADER + 151;
 
     public static final int LEN_SUBMIT_BODY_RESP_SIZE = CmppConst.LEN_HEADER + 12;
 
@@ -128,5 +126,7 @@ public class CmppConst {
     public static final int LEN_VALID_TIME = 17;
 
     public static final int LEN_VERSION = 1;
+
+    public static final int UNSIGNED_BYTE_MAX = 0xff;
 
 }

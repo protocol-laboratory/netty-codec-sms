@@ -23,59 +23,59 @@ import java.util.List;
 
 public class CmppSubmitBody {
 
-    private long msgId;
+    private final long msgId;
 
-    private byte pkTotal;
+    private final byte pkTotal;
 
-    private byte pkNumber;
+    private final byte pkNumber;
 
-    private byte registeredDelivery;
+    private final byte registeredDelivery;
 
-    private byte msgLevel;
+    private final byte msgLevel;
 
-    private String serviceId;
+    private final String serviceId;
 
-    private byte feeUserType;
+    private final byte feeUserType;
 
-    private String feeTerminalId;
+    private final String feeTerminalId;
 
-    private byte feeTerminalType;
+    private final byte feeTerminalType;
 
-    private byte tpPId;
+    private final byte tpPId;
 
-    private byte tpUdhi;
+    private final byte tpUdhi;
 
-    private byte msgFmt;
+    private final byte msgFmt;
 
-    private String msgSrc;
+    private final String msgSrc;
 
-    private String feeType;
+    private final String feeType;
 
-    private String feeCode;
+    private final String feeCode;
 
-    private String validTime;
+    private final String validTime;
 
-    private String atTime;
+    private final String atTime;
 
-    private String srcId;
+    private final String srcId;
 
-    private byte destUsrTl;
+    private final byte destUsrTl;
 
-    private List<String> destTerminalId;
+    private final List<String> destTerminalId;
 
-    private byte destTerminalType;
+    private final byte destTerminalType;
 
-    private byte msgLength;
+    private final short msgLength;
 
-    private String msgContent;
+    private final byte[] msgContent;
 
-    private String linkId;
+    private final String linkId;
 
     public CmppSubmitBody(long msgId, byte pkTotal, byte pkNumber, byte registeredDelivery, byte msgLevel,
                           String serviceId, byte feeUserType, String feeTerminalId, byte feeTerminalType, byte tpPId,
                           byte tpUdhi, byte msgFmt, String msgSrc, String feeType, String feeCode, String validTime,
                           String atTime, String srcId, byte destUsrTl, List<String> destTerminalId,
-                          byte destTerminalType, byte msgLength, String msgContent, String linkId) {
+                          byte destTerminalType, short msgLength, byte[] msgContent, String linkId) {
         this.msgId = msgId;
         this.pkTotal = pkTotal;
         this.pkNumber = pkNumber;
@@ -186,11 +186,11 @@ public class CmppSubmitBody {
         return destTerminalType;
     }
 
-    public byte msgLength() {
+    public short msgLength() {
         return msgLength;
     }
 
-    public String msgContent() {
+    public byte[] msgContent() {
         return msgContent;
     }
 
