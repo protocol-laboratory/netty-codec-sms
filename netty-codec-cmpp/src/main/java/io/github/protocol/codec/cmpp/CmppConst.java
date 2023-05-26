@@ -88,6 +88,7 @@ public class CmppConst {
     public static final int GET_MO_ROUTE_RESP_ID = 0x80000017;
 
     public static final int LEN_ACTIVE_TEST_RESP_MSG = CmppConst.LEN_HEADER + 1;
+
     public static final int LEN_AT_TIME = 17;
 
     public static final int LEN_AUTHENTICATOR_ISMG = 16;
@@ -99,19 +100,40 @@ public class CmppConst {
     public static final int LEN_CONNECT_RESP_MSG = CmppConst.LEN_HEADER + 21;
 
     public static final int LEN_DEST_TERMINAL_ID = 32;
-    public static final int LEN_FEE_TERMINAL_ID = 32;
+
+    public static final int LEN_DEST_TERMINAL_TYPE = 1;
+
+    public static final int LEN_DESTUSR_TL = 1;
 
     public static final int LEN_FEE_CODE = 6;
 
+    public static final int LEN_FEE_TERMINAL_ID = 32;
+
+    public static final int LEN_FEE_TERMINAL_TYPE = 1;
+
     public static final int LEN_FEE_TYPE = 2;
+
+    public static final int LEN_FEE_USERTYPE = 1;
 
     public static final int LEN_HEADER = 12;
 
     public static final int LEN_LINK_ID = 20;
 
-    public static final int LEN_MESSAGE_CONTENT = 1;
+    public static final int LEN_MESSAGE_FMT = 1;
+
+    public static final int LEN_MESSAGE_ID = 8;
+
+    public static final int LEN_MESSAGE_LENGTH = 1;
+
+    public static final int LEN_MESSAGE_LEVEL = 1;
 
     public static final int LEN_MESSAGE_SRC = 6;
+
+    public static final int LEN_PK_NUMBER = 1;
+
+    public static final int LEN_PK_TOTAL = 1;
+
+    public static final int LEN_REGISTERED_DELIVERY = 1;
 
     public static final int LEN_SERVICE_ID = 10;
 
@@ -119,14 +141,18 @@ public class CmppConst {
 
     public static final int LEN_SRC_ID = 21;
 
-    public static final int LEN_SUBMIT_BODY_SIZE = CmppConst.LEN_HEADER + 152;
-
     public static final int LEN_SUBMIT_BODY_RESP_SIZE = CmppConst.LEN_HEADER + 12;
 
     public static final int LEN_TIMESTAMP = 4;
 
+    public static final int LEN_TP_TPID = 1;
+
+    public static final int LEN_TP_UDHI = 1;
+
     public static final int LEN_VALID_TIME = 17;
 
     public static final int LEN_VERSION = 1;
+
+    public static final int UNSIGNED_BYTE_MAX = 0xff;
 
 }

@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,16 +38,19 @@ public class CmppSubmitTest {
     public void case1() {
         CmppHeader header = new CmppHeader(CmppConst.SUBMIT_ID, 0);
         List<String> destTerminalId = Arrays.asList("123456789", "8888888");
+        byte[] msgContent = "q".getBytes(StandardCharsets.UTF_8);
         CmppSubmitBody cmppSubmitBody = new CmppSubmitBody(12345678L, (byte) 0, (byte) 0, (byte) 0, (byte) 0,
                 "1234567890", (byte) 0, "qwertyuiopasdfgh", (byte) 0, (byte) 0,
                 (byte) 0, (byte) 0, "asdfgh", "12", "asdfgh", "asdfghjklqwertyui",
                 "asdfghjkloiuytr", "asdfghjklzxcvbnmqwert", (byte) 2, destTerminalId,
-                (byte) 0, (byte) 0, "q", "asdfghjklqwertyuiopz");
+                (byte) 0, (short) msgContent.length, msgContent, "asdfghjklqwertyuiopz");
         ChannelHandlerContext ctx = Mockito.mock(ChannelHandlerContext.class);
         Mockito.when(ctx.alloc()).thenReturn(ByteBufAllocator.DEFAULT);
         ByteBuf buf = CmppEncoder.INSTANCE.doEncode(ctx, new CmppSubmit(header, cmppSubmitBody));
         CmppSubmit cmppSubmit = (CmppSubmit) decoder.decode(buf);
         Assertions.assertEquals("asdfghjklzxcvbnmqwert", cmppSubmit.body().srcId());
+        Assertions.assertEquals((short) msgContent.length, cmppSubmit.body().msgLength());
+        Assertions.assertArrayEquals(msgContent, cmppSubmit.body().msgContent());
         Assertions.assertEquals("asdfghjklqwertyuiopz", cmppSubmit.body().linkId());
         Assertions.assertEquals("123456789", cmppSubmit.body().destTerminalId().get(0));
         Assertions.assertEquals(0, buf.readableBytes());

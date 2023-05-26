@@ -92,11 +92,12 @@ public class CmppDecoder extends LengthFieldBasedFrameDecoder {
         byte destUsrTl = buf.readByte();
         List<String> destTerminalIds = new ArrayList<>();
         for (byte i = 0; i < destUsrTl; i++) {
-            destTerminalIds.add(readCString(buf));
+            destTerminalIds.add(readCString(buf, CmppConst.LEN_DEST_TERMINAL_ID));
         }
         byte destTerminalType = buf.readByte();
-        byte msgLength = buf.readByte();
-        String msgContent = readString(buf, CmppConst.LEN_MESSAGE_CONTENT);
+        short msgLength = buf.readUnsignedByte();
+        byte[] msgContent = new byte[msgLength];
+        buf.readBytes(msgContent);
         String linkId = readString(buf, CmppConst.LEN_LINK_ID);
         return new CmppSubmitBody(msgId, pkTotal, pkNumber, registeredDelivery, msgLevel, serviceId, feeUserType
                 , feeTerminalId, feeTerminalType, tpPid, tpUdhi, msgFmt, messageSrc, feeType, feeCode, validTime
@@ -131,13 +132,13 @@ public class CmppDecoder extends LengthFieldBasedFrameDecoder {
         return new String(bytes, 0, idx, StandardCharsets.UTF_8);
     }
 
-    private String readCString(ByteBuf frame) {
+    private String readCString(ByteBuf frame, int fixLength) {
         int length = frame.bytesBefore((byte) 0);
         if (length == -1) {
             throw new IllegalArgumentException("No \\0 found");
         }
         CharSequence charSequence = frame.readCharSequence(length, StandardCharsets.UTF_8);
-        frame.skipBytes(1);
+        frame.skipBytes(fixLength - length);
         return charSequence.toString();
     }
 }
