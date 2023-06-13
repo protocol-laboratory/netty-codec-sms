@@ -73,7 +73,7 @@ public class CmppEncoder extends MessageToMessageEncoder<CmppMessage> {
         ByteBuf buf = ctx.alloc().buffer();
         writeHeader(buf, message.header(), CmppConst.LEN_CONNECT_MSG);
         writeString(buf, message.body().sourceAddr(), CmppConst.LEN_SOURCE_ADDR);
-        writeString(buf, message.body().authenticatorSource(), CmppConst.LEN_AUTHENTICATOR_SOURCE);
+        writeBytes(buf, message.body().authenticatorSource());
         buf.writeByte(message.body().version());
         buf.writeInt(message.body().timestamp());
         return buf;
@@ -153,6 +153,10 @@ public class CmppEncoder extends MessageToMessageEncoder<CmppMessage> {
         for (int i = len; i < length; i++) {
             buf.writeByte(0);
         }
+    }
+
+    private void writeBytes(ByteBuf buf, byte[] bytes) {
+        buf.writeBytes(bytes);
     }
 
     private void writeHeader(ByteBuf buf, CmppHeader header, int size) {
