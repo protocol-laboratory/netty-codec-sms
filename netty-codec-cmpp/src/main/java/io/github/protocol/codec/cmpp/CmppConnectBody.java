@@ -19,18 +19,35 @@
 
 package io.github.protocol.codec.cmpp;
 
+import java.time.LocalDateTime;
+
 public class CmppConnectBody {
 
     private final String sourceAddr;
 
-    private final String authenticatorSource;
+    private final byte[] authenticatorSource;
 
     private final byte version;
 
+    /**
+     * MMDDHHMMSS format timestamp
+     */
     private final int timestamp;
 
-    public CmppConnectBody(String sourceAddr, String authenticatorSource, byte version, int timestamp) {
+    public CmppConnectBody(String sourceAddr, String secret, byte version) {
         this.sourceAddr = sourceAddr;
+        LocalDateTime localDateTime = LocalDateTime.now();
+        this.authenticatorSource = CmppCodecUtil.getAuthenticatorSource(sourceAddr, secret, localDateTime);
+        this.version = version;
+        this.timestamp = Integer.parseInt(CmppCodecUtil.getTimestamp(localDateTime));
+    }
+
+    public CmppConnectBody(String sourceAddr, byte[] authenticatorSource, byte version, int timestamp) {
+        this.sourceAddr = sourceAddr;
+        if (authenticatorSource.length != CmppConst.LEN_AUTHENTICATOR_SOURCE) {
+            throw new IllegalArgumentException("authenticatorSource length must be "
+                    + CmppConst.LEN_AUTHENTICATOR_SOURCE);
+        }
         this.authenticatorSource = authenticatorSource;
         this.version = version;
         this.timestamp = timestamp;
@@ -40,7 +57,7 @@ public class CmppConnectBody {
         return sourceAddr;
     }
 
-    public String authenticatorSource() {
+    public byte[] authenticatorSource() {
         return authenticatorSource;
     }
 

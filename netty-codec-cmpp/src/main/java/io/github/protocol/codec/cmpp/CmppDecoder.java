@@ -57,7 +57,7 @@ public class CmppDecoder extends LengthFieldBasedFrameDecoder {
 
     private CmppConnectBody decodeConnectBody(ByteBuf byteBuf) {
         String sourceAddr = readString(byteBuf, CmppConst.LEN_SOURCE_ADDR);
-        String authenticatorSource = readString(byteBuf, CmppConst.LEN_AUTHENTICATOR_SOURCE);
+        byte[] authenticatorSource = readBytes(byteBuf, CmppConst.LEN_AUTHENTICATOR_SOURCE);
         byte version = byteBuf.readByte();
         int timestamp = byteBuf.readInt();
         return new CmppConnectBody(sourceAddr, authenticatorSource, version, timestamp);
@@ -140,5 +140,11 @@ public class CmppDecoder extends LengthFieldBasedFrameDecoder {
         CharSequence charSequence = frame.readCharSequence(length, StandardCharsets.UTF_8);
         frame.skipBytes(fixLength - length);
         return charSequence.toString();
+    }
+
+    private byte[] readBytes(ByteBuf frame, int length) {
+        byte[] bytes = new byte[length];
+        frame.readBytes(bytes);
+        return bytes;
     }
 }
