@@ -32,7 +32,7 @@ public class SgipBindRespTest {
 
     @Test
     public void case1() {
-        SgipHeader header = new SgipHeader(SgipConst.LEN_BIND_RESP_MSG, SgipConst.BIND_RESP_ID, 112345678L);
+        SgipHeader header = new SgipHeader(SgipConst.LEN_BIND_RESP_BODY, SgipConst.BIND_RESP_ID, 112345678L);
         ChannelHandlerContext ctx = Mockito.mock(ChannelHandlerContext.class);
         Mockito.when(ctx.alloc()).thenReturn(ByteBufAllocator.DEFAULT);
         SgipBindRespBody body = new SgipBindRespBody((byte) 1, "reserve");
