@@ -84,12 +84,11 @@ public class SgipEncoder extends MessageToMessageEncoder<SgipMessage> {
 
     private ByteBuf encodeBindResp(ChannelHandlerContext ctx, SgipBindResp message) {
         ByteBuf buf = ctx.alloc().buffer(SgipConst.LEN_BIND_RESP_MSG);
-        writeHeader(buf, message.header(), SgipConst.LEN_BIND_MSG);
+        writeHeader(buf, message.header(), SgipConst.LEN_BIND_RESP_MSG);
         buf.writeByte(message.body().result());
         writeString(buf, message.body().reserve(), SgipConst.LEN_BIND_RESP_RESERVE);
         return buf;
     }
-
 
     private ByteBuf encodeSubmit(ChannelHandlerContext ctx, SgipSubmit message) {
         int bodyLen = submitBodyLen(message.body());

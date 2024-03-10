@@ -101,7 +101,9 @@ public class SgipConst {
 
     public static final int LEN_BIND_RESP_RESERVE = 8;
 
-    public static final int LEN_BIND_RESP_MSG = 9;
+    public static final int LEN_BIND_RESP_BODY = 9;
+
+    public static final int LEN_BIND_RESP_MSG = 25;
 
     public static final int LEN_DELIVER_MSG = SgipConst.LEN_HEADER + 16;
 
