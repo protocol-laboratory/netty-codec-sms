@@ -41,6 +41,7 @@
         <!-- dependency -->
         <junit-jupiter-engine.version>5.10.2</junit-jupiter-engine.version>
         <log4j.version>2.20.0</log4j.version>
+        <maven-scm-provider-gitexe.version>2.0.1</maven-scm-provider-gitexe.version>
         <mockito.version>5.11.0</mockito.version>
         <netty.version>4.1.107.Final</netty.version>
         <puppycrawl.version>10.14.0</puppycrawl.version>
@@ -48,7 +49,10 @@
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
         <maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
+        <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-surefire-plugin.version>3.2.1</maven-surefire-plugin.version>
+        <nexus-staging-plugin.version>1.6.13</nexus-staging-plugin.version>
         <spotbugs-maven-plugin.version>4.8.3.1</spotbugs-maven-plugin.version>
     </properties>
 
@@ -145,7 +149,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>3.0.0-M6</version>
+                <version>${maven-release-plugin.version}</version>
                 <configuration>
                     <localCheckout>true</localCheckout>
                     <pushChanges>false</pushChanges>
@@ -156,7 +160,7 @@
                     <dependency>
                         <groupId>org.apache.maven.scm</groupId>
                         <artifactId>maven-scm-provider-gitexe</artifactId>
-                        <version>2.0.1</version>
+                        <version>${maven-scm-provider-gitexe.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -180,7 +184,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>${maven-source-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -193,7 +197,7 @@
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.13</version>
+                <version>${nexus-staging-plugin.version}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <serverId>ossrh</serverId>
@@ -221,7 +225,7 @@
 
     <developers>
         <developer>
-            <name>ShootHzj</name>
+            <name>shootHzj</name>
             <email>shoothzj@gmail.com</email>
         </developer>
     </developers>
